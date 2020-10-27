@@ -1,15 +1,15 @@
 function checkConstraintsType(name)
 
-% Add source files to path
+% Add CUTEst-to-Matlab directory to path
 addpath('/usr/local/opt/cutest/libexec/src/matlab');
 
-% Set output file
+% Set output file handles
 foutu = fopen('list_unconstrained.txt','a');
 foute = fopen('list_equality_constrained.txt','a');
 foutg = fopen('list_generally_constrained.txt','a');
 
-% Move to problem directory
-cd(sprintf('/Users/frankecurtis/Dropbox/git/StochasticSQP/StochasticSQP/exes/decoded/%s',name));
+% Move to directory of problem 'name' (input to this function)
+cd(sprintf('/Users/frankecurtis/Dropbox/git/Utilities/CUTEst2Matlab/decoded/%s',name));
 
 % Set up CUTEst
 prob = cutest_setup();
@@ -32,13 +32,13 @@ end
 % Terminate CUTEst
 cutest_terminate;
 
-% Move back
-cd('/Users/frankecurtis/Dropbox/git/StochasticSQP/StochasticSQP/exes/');
+% Move back to script directory
+cd('/Users/frankecurtis/Dropbox/git/Utilities/CUTEst2Matlab');
 
 % Print sizes
 fprintf(' variables = %8d, equality = %8d, inequality = %8d, bounds = %8d',n_vars,n_cone,n_coni,n_conb);
 
-% Add to list of equality constrained problems, if applicable
+% Add problem name to appropriate list
 if n_conb == 0 && n_cons == 0
   fprintf(foutu,'%s\n',name);
   fprintf(' UNCONSTRAINED!\n');
@@ -50,7 +50,7 @@ else
   fprintf('\n');
 end
 
-% Close file
+% Close files
 fclose(foutu);
 fclose(foute);
 fclose(foutg);

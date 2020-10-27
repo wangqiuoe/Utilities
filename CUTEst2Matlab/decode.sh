@@ -7,12 +7,19 @@ problem_list="list_all.txt"
 while IFS= read -r problem
 do
 
-  # Create folder for decoded problem, if doesn't exist already
-  if [ ! -d decoded/$problem ]; then
+  # Create main directory for decoded problems
+  if [ ! -d "decoded" ]
+  then
+    mkdir decoded;
+  fi
+
+  # Create directory for decoded problem, if doesn't exist already
+  if [ ! -d "decoded/$problem" ]
+  then
     mkdir decoded/$problem;
   fi
 
-  # Move to folder to decode problem
+  # Move to directory to decode problem
   cd decoded/$problem;
 
   # Decode problem

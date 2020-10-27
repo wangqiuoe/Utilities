@@ -1,0 +1,112 @@
+This utility presumes that you have successfully installed CUTEst (with Matlab)
+on your computer.  Instructions on how to do that are not provided here.  In
+particular, this utility presumes that these tools have been installed on macOS
+such that you have a
+
+cutest2matlab_osx
+
+executable available on your computer.  If you have installed CUTEst (with 
+Matlab) on Windows or Linux, then this utility might be useful with some
+modification, but instructions on how to do that are not provided here.
+
+The following steps can be used to decode a set of CUTEst problems, separate
+the list of decoded problems into lists depending on the type of constraints
+that each problem involves, and run a solver to solve a set of problems.
+
+1) In the directory with this README file, create a file called
+
+list_all.txt
+
+that contains the list of all CUTEst problems that you want to decode.  The
+file should contain the name of one problem per line and nothing else.  This
+can be created using CUTEst's select tool.  (If you have installed CUTEst
+using Homebrew, then the select tool executable may be available in
+
+/usr/local/opt/sifdecode/bin
+
+or wherever you have installed the sifdecode tools.)
+
+2) In the directory with this README file, run
+
+./decode.sh
+
+from a terminal.  This will create a main 'decoded' directory along with
+subdirectories for each problem that is decoded.  NOTE: It is possible that
+errors will occur as one of the problems is decoded, or the decoding may 'hang'
+if a problem is too large for your computer.  In this case, you may need to
+quit the decoder (using Ctrl-c) and start it again.  To avoid unnecessarily
+decoding a problem that has already been decoded, manipulate the list of problems
+being decoded as you go through decoding the entire list.) This may take hours!
+
+3) In the directory with this README file, open the file named
+
+checkConstraintsType.m
+
+in an editor.  You will need to edit this file to refer to directory names
+that are specific for your computer, and if you want to sort the list of problems
+in another manner than the one given in the file by default.  (As written,
+the file distinguishes problems as unconstrained, equality constrained, or
+generally constrained, where the last category includes any problem that is
+not unconstrained or has equality constraints only.)  Save the file.
+
+4) In the directory with this README file, create a file called
+
+list_decoded.txt
+
+that contains the list of all CUTEst problems that you want to sort by constraint
+type.  This file should contain the name of one problem per line and nothing else.
+
+5) In the directory with this README file, open the file named
+
+check.sh
+
+in an editor.  You will need to edit this file to refer to your Matlab executable.
+
+6) In the directory with this README file, run
+
+./check.sh
+
+from a terminal.  This will create and append to the lists of problems that
+are specified in the aforementioned checkConstraintsType.m file.  NOTE: If
+any errors occur during this process and you need to re-run this script,
+then remember to delete the list files before re-running the script.  This
+is because the problem names are *appended* to whatever lists already exist.
+
+7) Move the files
+
+solveCUTEstProblem.m and
+solve.sh
+
+to whatever directory you want to use for running and collecting the results
+from your experiment.  Let us call this your experiment directory.  In your
+experiment directory, open the file named
+
+solveCUTEstProblem.m
+
+in an editor.  You will need to edit this file to refer to directory names
+that are specific for your computer, and to set up the algorithms that you
+want to run for your experiment.  (As written, the file presumes that your
+experiment directory is the same as the one that contains this README file
+and that two instances of the 'StochasticSQP' solver are to be run.)
+
+8) In your experiment directory, create files called
+
+list_solve.txt and
+list_algorithms.txt
+
+that contain the list of all CUTEst problems that you want to solve for
+your experiments (which may may be a copy of one of the files produced by the
+check.sh script) and the list of names of algorithms you want to run, respectively.
+
+9) In your experiment directory, open the file named
+
+solve.sh
+
+in an editor.  You will need to edit this file to refer to your Matlab executable.
+
+10) In your experiment directory, run
+
+./solve.sh
+
+from a terminal.  This will create an output directory that will collect the
+output from your experiments.
