@@ -25,6 +25,7 @@ to his PATH environment variable.  This allows him to run the executable file fo
 project in his terminal from any directory on his machine.  We suggest you do the same.
 
 *Use*  
-If your environment variables are set up properly, you should be able to run the command
-   >> paper_starter
-and it should start asking you questions related to how you want your paper formatted. Good luck!
+If your environment variables are set up properly, you should be able to run the command  
+   paper_starter  
+in your terminal to start a new paper. If it starts asking you questions in the terminal,
+then things should be workign properly.  Good luck!
