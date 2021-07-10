@@ -14,19 +14,17 @@ In order to use this package, you must have the following environment variables 
 
 For example, here is how they are set on Daniel Robinson's mac inside of his .bashrc file:
 
-DPRFECLATEX=/Users/danielrobinson/git/Utilities/LaTeX
-
-PAPERSTARTER=/Users/danielrobinson/git/Utilities/PaperStarter
-
-PATH="/Users/danielrobinson/Dropbox/daniel/git/Utilities/PaperStarter/bin:${PATH}"
-
-export PAPERSTARTER DPRFECLATEX PATH
+   DPRFECLATEX=/Users/danielrobinson/git/Utilities/LaTeX
+   PAPERSTARTER=/Users/danielrobinson/git/Utilities/PaperStarter
+   PATH="/Users/danielrobinson/Dropbox/daniel/git/Utilities/PaperStarter/bin:${PATH}"
+   export PAPERSTARTER DPRFECLATEX PATH
 
 In this example, notice that Daniel has also appended the "bin" directory inside of "PaperStarter"
 to his PATH environment variable.  This allows him to run the executable file associated with this 
 project in his terminal from any directory on his machine.  We suggest you do the same.
 
 *Use*
+
 If your environment variables are set up properly, you should be able to run the command
    >> paper_starter
 and it should start asking you questions related to how you want your paper formatted. Good luck!
