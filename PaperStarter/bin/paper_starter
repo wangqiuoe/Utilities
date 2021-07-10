@@ -6,7 +6,7 @@
 printf "\n"
 printf "What do you want to do? \n"
 printf "0) Start a new paper. \n"
-printf "1) Change the journal template or name of paper. \n\n"
+printf "1) Change the journal template or file name of paper. \n\n"
 printf "Please enter a number 0-1. "
 read response
 case $response in
@@ -23,7 +23,7 @@ esac
 # Get the desired name for the paper.
 #=======================================================
 
-printf "What name should be used for the paper files? (e.g. noncovex_complexity or FaRSA)\n"
+printf "What name should be used for the paper FILES? (e.g. noncovex_complexity or FaRSA)\n"
 printf "Please type the name.\n"
 read papername
 
@@ -37,7 +37,7 @@ printf "0) SIOPT \n"
 printf "1) MP \n"
 printf "2) IMAJNA \n"
 printf "3) OPTLETTERS \n\n"
-printf "Please enter a number 0-3. "
+printf "Please enter a number 0-3."
 read journal
 case $journal in
    [0-3] )
@@ -55,35 +55,37 @@ esac
 
 rm -f *.clo *.cls *.bst
 rm -f *_paper.tex *_techreport.tex
+rm -f *_paper.pdf *_techreport.pdf
+rm -f *_paper.bbl *_techreport.bbl
 
 case $journal in
    # SIOPT
    #==============
    0 )
    printf "Copying SIOPT-specific files .....\n"
-   cp ${DPRFEC}/journal_files/SIOPT/* .
-   cp ${DPRFEC}/journal_files/dpr_fec/paper_siopt.tex ./${papername}_paper.tex
+   cp ${PAPERSTARTER}/journal_files/SIOPT/* .
+   cp ${PAPERSTARTER}/src/paper_siopt.tex ./${papername}_paper.tex
    ;;
    # MP
    #==============
    1 )
    printf "Copying MP-specific files .....\n"
-   cp ${DPRFEC}/journal_files/MP/* .
-   cp ${DPRFEC}/journal_files/dpr_fec/paper_mp.tex ./${papername}_paper.tex
+   cp ${PAPERSTARTER}/journal_files/MP/* .
+   cp ${PAPERSTARTER}/src/paper_mp.tex ./${papername}_paper.tex
    ;;
    # IMAJNA
    #==============
    2 )
    printf "Copying IMAJNA-specific files .....\n"
-   cp ${DPRFEC}/journal_files/IMAJNA/* .
-   cp ${DPRFEC}/journal_files/dpr_fec/paper_imajna.tex ./${papername}_paper.tex
+   cp ${PAPERSTARTER}/journal_files/IMAJNA/* .
+   cp ${PAPERSTARTER}/src/paper_imajna.tex ./${papername}_paper.tex
    ;;
    # OPTLETTERS
    #==============
    3 )
    printf "Copying OPTLETTERS-specific files .....\n"
-   cp ${DPRFEC}/journal_files/OPTLETTERS/* .
-   cp ${DPRFEC}/journal_files/dpr_fec/paper_optletters.tex ./${papername}_paper.tex
+   cp ${PAPERSTARTER}/journal_files/OPTLETTERS/* .
+   cp ${PAPERSTARTER}/src/paper_optletters.tex ./${papername}_paper.tex
    ;;
    # Unrecognized
    #==============
@@ -93,41 +95,42 @@ case $journal in
    ;;
 esac
 
-cp ${DPRFEC}/journal_files/dpr_fec/techreport.tex ./${papername}_techreport.tex
+cp ${PAPERSTARTER}/src/techreport.tex ./${papername}_techreport.tex
 
-#=============================================================================================
-# Refresh all non-journal and non-paper specific files, except abstract, body, and references.
-#=============================================================================================
+#====================================================================================================
+# Refresh all non-journal and non-paper specific files, except abstract, body, title, and references.
+#====================================================================================================
 
 printf "Refreshing all non-journal and non-paper-specific files.\n"
-cp ${DPRFEC}/journal_files/dpr_fec/coral.png .
-cp ${DPRFEC}/journal_files/dpr_fec/dpr_fec.sty .
-cp ${DPRFEC}/journal_files/dpr_fec/ise.png .
-cp ${DPRFEC}/journal_files/dpr_fec/isetechreport.sty .
-cp ${DPRFEC}/journal_files/dpr_fec/lehigh.png .
-cp ${DPRFEC}/journal_files/dpr_fec/Makefile .
+cp ${PAPERSTARTER}/src/coral.png .
+cp ${PAPERSTARTER}/src/ise.pdf .
+cp ${PAPERSTARTER}/src/isetechreport.sty .
+cp ${PAPERSTARTER}/src/lehigh.png .
+cp ${PAPERSTARTER}/src/Makefile .
 
 printf "Updating Makefile with new name supplied above.\n"
 sed "-i" "" "-e" "s/name/${papername}/g" Makefile
 
-#=============================================================================
-# If starting a paper, get the relevant files: abstract, body, and references.
-#=============================================================================
+#====================================================================================
+# If starting a paper, get the relevant files: abstract, body, title, and references.
+#====================================================================================
 
 case $response in
    # Start a new paper.
    # ==================
    0 ) 
-   printf "Starting a new paper.  Copying over initial files: abstract, body, and references.\n\n"
-   cp ${DPRFEC}/journal_files/dpr_fec/abstract.tex .
-   cp ${DPRFEC}/journal_files/dpr_fec/body.tex .
-   cp ${DPRFEC}/journal_files/dpr_fec/references.bib .
+   printf "Starting a new paper.  Copying over initial files: abstract, body, title, style file, and references.\n\n"
+   cp ${PAPERSTARTER}/src/abstract.tex .
+   cp ${PAPERSTARTER}/src/body.tex .
+   cp ${PAPERSTARTER}/src/title.tex .
+   cp ${DPRFECLATEX}/dpr_fec.sty .
+   cp ${DPRFECLATEX}/dpr_fec.bib ./references.bib
    ;;
    # Updating paper name or journal.
    # =================================
    * )
    printf "\n"
-   printf "Only asked to update paper name or journal.  Not modifying abstract.tex, body.tex, and references.tex.\n\n"
+   printf "Only asked to update file name for paper or journal.  Not modifying abstract.tex, body.tex, title.tex, and references.tex.\n\n"
    exit 1
    ;;
 esac

@@ -1,7 +1,7 @@
 all: paper techreport
 
 paper: name_paper.pdf
-name_paper.pdf: name_paper.tex abstract.tex body.tex references.bib
+name_paper.pdf: name_paper.tex abstract.tex body.tex title.tex references.bib
 	-pdflatex name_paper.tex
 	-bibtex name_paper
 	-bibtex name_paper
@@ -11,7 +11,7 @@ name_paper.pdf: name_paper.tex abstract.tex body.tex references.bib
 	-rm -f *.aux *.blg *.log *.out *.gz *.thm
 
 techreport: name_techreport.pdf
-name_techreport.pdf: name_techreport.tex abstract.tex body.tex references.bib
+name_techreport.pdf: name_techreport.tex abstract.tex body.tex title.tex references.bib
 	-pdflatex name_techreport.tex
 	-bibtex name_techreport
 	-bibtex name_techreport
