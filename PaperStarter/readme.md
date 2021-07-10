@@ -15,8 +15,11 @@ In order to use this package, you must have the following environment variables 
 For example, here is how they are set on Daniel Robinson's mac inside of his .bashrc file:
 
 DPRFECLATEX=/Users/danielrobinson/git/Utilities/LaTeX
+
 PAPERSTARTER=/Users/danielrobinson/git/Utilities/PaperStarter
+
 PATH="/Users/danielrobinson/Dropbox/daniel/git/Utilities/PaperStarter/bin:${PATH}"
+
 export PAPERSTARTER DPRFECLATEX PATH
 
 In this example, notice that Daniel has also appended the "bin" directory inside of "PaperStarter"
