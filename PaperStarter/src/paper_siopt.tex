@@ -1,0 +1,89 @@
+%****************
+% Document class
+%****************
+\documentclass[review]{siamart171218}
+
+%**********
+% Requires
+%**********
+\RequirePackage{amsmath}
+\RequirePackage{amsfonts}
+\RequirePackage{amssymb}
+\RequirePackage{hyperref}
+\RequirePackage{multirow}
+\RequirePackage{algorithm}
+\RequirePackage{algpseudocode}
+\RequirePackage{graphicx}
+\RequirePackage{xcolor}
+%\RequirePackage{amsthm}
+\allowdisplaybreaks
+
+%*************
+% Use packages
+%*************
+\usepackage{dpr_fec,ifthen}
+
+%*************
+% New theorems
+%*************
+\newtheorem{assumption}{Assumption}[section]
+%\newtheorem{definition}{Definition}[section]
+
+%**********
+% Headings
+%**********
+\title {How to Characterize the Worst-Case Performance of Algorithms for Nonconvex Optimization\footnotemark[1]}
+\author{Frank E. Curtis\footnotemark[2]
+   \and Daniel P.~Robinson\footnotemark[3]}
+\date  {\today}
+
+%**********
+% Document
+%**********
+\begin{document}
+
+% Title
+\maketitle
+
+% Footnotes
+\renewcommand{\thefootnote}{\fnsymbol{footnote}}
+\footnotetext[1]{This material is based upon work supported by the U.S.~Department of Energy, Office of Science, Applied Mathematics, Early Career Research Program under Award Number DE--SC0010615 and by the U.S.~National Science Foundation, Division of Mathematical Sciences, Computational Mathematics Program under Award Number DMS--1016291.}
+\footnotetext[2]{Department of Industrial and Systems Engineering, Lehigh University, Bethlehem, PA, USA; E-mail: \email{frank.e.curtis@gmail.com}}
+\footnotetext[3]{Department of Applied Mathematics and Statistics, Johns Hopkins University, Baltimore, MD, USA; E-mail: \email{daniel.p.robinson@gmail.com}}
+\renewcommand{\thefootnote}{\arabic{footnote}}
+
+%**********
+% Abstract
+%**********
+\begin{abstract}
+  \input{abstract}
+\end{abstract}
+
+%**********
+% Keywords
+%**********
+\begin{keywords}
+  nonlinear optimization, nonconvex optimization, worst-case iteration complexity, worst-case evaluation complexity, regularization methods, trust region methods
+\end{keywords}
+
+%*****
+% AMS
+%*****
+\begin{AMS}
+  49M37, 65K05, 65K10, 65Y20, 68Q25, 90C30, 90C60
+\end{AMS}
+
+%**************
+% Body of paper
+%**************
+\numberwithin{equation}{section}
+\numberwithin{theorem}{section}
+\input{body}
+
+%**************
+% Bibliography
+%**************
+\bibliographystyle{siamplain}
+\bibliography{references}
+
+\end{document}

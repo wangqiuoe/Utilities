@@ -1,0 +1,98 @@
+%****************
+% Document class
+%****************
+\documentclass[smallextended]{svjour3}       % onecolumn (second format)
+
+\smartqed % flush right qed marks, e.g. at end of proof
+
+%**********
+% Requires
+%**********
+\RequirePackage{amsmath}
+\RequirePackage{amsfonts}
+\RequirePackage{amssymb}
+\RequirePackage{hyperref}
+\RequirePackage{multirow}
+\RequirePackage{algorithm}
+\RequirePackage{algpseudocode}
+\RequirePackage{graphicx}
+\RequirePackage{xcolor}
+%\RequirePackage{amsthm}
+\allowdisplaybreaks
+
+%*************
+% Use packages
+%*************
+\usepackage{dpr_fec,ifthen}
+
+%*************
+% New theorems
+%*************
+\newtheorem{assumption}{Assumption}[section]
+%\newtheorem{definition}{Definition}[section]
+
+%**********
+% Document
+%**********
+\begin{document}
+
+%**********
+% Headings
+%**********
+
+% Title
+\title {Insert Title Here\thanks{This material is based upon work supported by the U.S.~Department of Energy, Office of Science, Applied Mathematics, Early Career Research Program under Award Number DE--?????? and by the U.S.~National Science Foundation, Division of Mathematical Sciences, Computational Mathematics Program under Award Number DMS--??????.}}
+\subtitle{Do you have a subtitle?\\ If so, write it here}
+
+% Author
+\author{Frank E. Curtis \and
+        Daniel P.~Robinson}
+%\authorrunning{Short form of author list} % if too long for running head        
+
+% Institution information
+\institute{Frank E. Curtis \at
+           Department of Industrial and Systems Engineering,
+           Lehigh University, Bethlehem, PA, USA;\\
+           Tel.: +1-646-789-5490\\
+           %Fax: +123-45-678910\\
+           \email{frank.e.curtis@lehigh.edu} %  \\
+           %\emph{Present address:} of F. Author  %  if needed
+           \and
+           Daniel P. Robinson \at
+           Department of Industrial and Systems Engineering,
+           Lehigh University, Bethlehem, PA, USA;\\
+           Tel.: +1-610-758-4039\\
+           %Fax: +123-45-678910\\
+           \email{daniel.p.robinson@lehigh.edu} %  \\
+           %\emph{Present address:} of S. Author  %  if needed
+}
+
+% Data
+\date {Received: date / Accepted: date}
+
+% Title
+\maketitle
+
+%**********
+% Abstract
+%**********
+\begin{abstract}
+  \input{abstract}
+  \keywords{nonlinear optimization, nonconvex optimization, worst-case iteration complexity, worst-case evaluation complexity, regularization methods, trust region methods}
+  \subclass{MSC code1 \and MSC code2 \and MSC code3} 
+\end{abstract}
+
+%**************
+% Body of paper
+%**************
+\numberwithin{equation}{section}
+\numberwithin{theorem}{section}
+\input{body}
+
+%**************
+% Bibliography
+%**************
+\bibliographystyle{spbasic}
+\bibliography{references}
+
+\end{document}

@@ -1,0 +1,57 @@
+%******************************************
+% Paper-dependent macros here
+%******************************************
+
+
+%*********
+% Section
+%*********
+\section{Introduction}\label{sec.introduction}
+
+In this paper \dots
+
+%************
+% Subsection
+%************
+\subsection{Contributions}
+
+Our contributions relate \dots
+
+%************
+% Subsection
+%************
+\subsection{Notation}
+
+We use $\R{}$ to denote the set of real numbers (i.e., scalars), $\R{}_{\geq0}$ (resp.,~$\R{}_{>0}$) to denote the set of nonnegative (resp.,~positive) real numbers,~$\R{n}$ to denote the set of $n$-dimensional real vectors, and $\R{m \times n}$ to denote the set of $m$-by-$n$-dimensional real matrices.  The set of natural numbers is denoted as $\N{} := \{0,1,2,\dots\}$.  We write $\lambda(M)$ to denote the left-most (with respect to the real line) eigenvalue of a real symmetric matrix $M$.  Given $a \in \R{}$, we define $(a)_- := \max\{0,-a\}$, which is a nonnegative scalar that is strictly positive if and only if $a$ is strictly negative.  All norms are considered Euclidean; i.e., we let $\|\cdot\| := \|\cdot\|_2$.
+
+If $\{a_k\}$ and $\{b_k\}$ are sequences of nonnegative scalars (i.e., elements of $\R{}_{\geq0}$), then we write $a_k = \Ocal(b_k)$ to indicate that there exists a positive constant $c \in \R{}_{>0}$ such that $a_k \leq cb_k$ for all $k \in \N{}$.  On the other hand, we write $a_k = \Omega(b_k)$ to indicate that there exists $c \in \R{}_{>0}$ such that $a_k \geq cb_k$ for all $k \in \N{}$.
+
+Our problem of interest is to minimize $f(x)$ with respect to $x \in \R{n}$.  For simplicity, we assume that $f$ is real-valued and that one is interested in analyzing the behavior of a (monotone) descent algorithm, i.e., one for which, given an initial point $x_0 \in \R{n}$, the sequence $\{f(x_k)\}$ is monotonically nonincreasing over $\Lcal := \{x \in \R{n} : f(x) \leq f(x_0)\}$.  (Our strategies could also be extended to situations in which $f$ is extended-real-valued and for analyzing nonmonotone methods; see~\S\ref{sec.conclusion}.)  We append a natural number as a subscript for a quantity to denote its value during an iteration of an algorithm; e.g., henceforth, we let $f_k := f(x_k)$.
+
+We make the following Assumption~\ref{ass.first} throughout the paper and add Assumption~\ref{ass.second} when analyzing second-order methods.
+
+\bassumption\label{ass.first}
+  We assume that \dots
+\eassumption
+
+%************
+% Subsection
+%************
+\subsection{Organization}
+
+In \S\ref{sec.analysis}, \dots
+
+%*********
+% Section
+%*********
+\section{Analysis}\label{sec.analysis}
+
+%*********
+% Section
+%*********
+\section{Numerical Results}\label{sec.numerical}
+
+%*********
+% Section
+%*********
+\section{Conclusion}\label{sec.conclusion}

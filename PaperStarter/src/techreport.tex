@@ -1,0 +1,92 @@
+%*******
+% COR@L
+%*******
+\def\coralreport{1}
+
+%****************
+% Document class
+%****************
+\documentclass[10pt]{article}
+
+%**********
+% Requires
+%**********
+\RequirePackage{amsmath}
+\RequirePackage{amsfonts}
+\RequirePackage{amssymb}
+\RequirePackage{hyperref}
+\RequirePackage{multirow}
+\RequirePackage{algorithm}
+\RequirePackage{algpseudocode}
+\RequirePackage{graphicx}
+\RequirePackage{xcolor}
+%\RequirePackage{amsthm}
+\RequirePackage{amsmath}
+\RequirePackage{amsfonts}
+\RequirePackage{amssymb}
+\RequirePackage{hyperref}
+\RequirePackage{multirow}
+\RequirePackage{algorithm}
+\RequirePackage{algpseudocode}
+\RequirePackage{graphicx}
+\RequirePackage{xcolor}
+\allowdisplaybreaks
+
+%**********
+% Packages
+%**********
+\usepackage{dpr_fec,ifthen,dsfont}
+
+%*************
+% New theorems
+%*************
+\newtheorem{assumption}{Assumption}[section]
+
+%*******
+% COR@L
+%*******
+\usepackage{isetechreport}
+\def\reportyear{17T}
+\def\reportno{012}
+\def\revisionno{2}
+\def\originaldate{February 3, 2018}
+\def\revisiondate{\today}
+\coraltrue
+\cvcrfalse
+
+%**********
+% Document
+%**********
+\begin{document}
+
+\title{Self-Correcting Variable-Metric Algorithms for Nonsmooth Optimization}
+
+\author{Frank E.~Curtis\thanks{E-mail: frank.e.curtis@gmail.com}}
+\affil{Department of Industrial and Systems Engineering, Lehigh University}
+\author{Daniel P.~Robinson\thanks{E-mail: daniel.p.robinson@gmail.com}}
+\affil{Department of Applied Mathematics and Statistics, Johns Hopkins University}
+%\author{Baoyu Zhou\thanks{E-mail: baz216@lehigh.edu}}
+%\affil{Department of Industrial and Systems Engineering, Lehigh University}
+\titlepage
+
+\maketitle
+
+%**********
+% Abstract
+%**********
+\begin{abstract}
+  \input{abstract}
+\end{abstract}
+
+%**************
+% Body of paper
+%**************
+\input{body}
+
+%**************
+% Bibliography
+%**************
+\bibliographystyle{plain}
+\bibliography{references}
+
+\end{document}

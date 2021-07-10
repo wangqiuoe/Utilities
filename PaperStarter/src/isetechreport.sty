@@ -1,0 +1,74 @@
+\RequirePackage{fullpage,graphicx,authblk,ifthen}
+
+% Define ifs
+\newif\ifcoral
+\newif\ifcvcr
+\newif\ifrevised
+
+% Define if defaults
+\coralfalse
+\cvcrfalse
+
+% Define title page
+\renewcommand{\Authfont}{\Large \scshape}
+\renewcommand{\Affilfont}{\large \rm}
+\let\oldthanks\thanks
+\renewcommand{\thanks}[1]{}
+\let\oldtabular\tabular
+\let\oldendtabular\endtabular
+\renewenvironment{tabular}[2][]{\begin{center}}
+                                   {\end{center}}
+\def\titlepage{
+  \thispagestyle{empty}
+  \begin{center}
+    \includegraphics[height=0.8in]{ise}\\
+%    \vskip 0.4in
+    \vfill
+    \huge
+    \@title
+    \vfill
+    \rm
+%    \Large
+      \begin{tabular}[t]{c}
+         \AB@authors
+%        \typeout{\AB@author}
+      \end{tabular}
+    \vfill
+    \large
+%     \textbf{Lehigh Industrial and Systems Engineering}
+    \vskip 0.2in
+    \textrm{\ifcoral COR@L\fi\ifcvcr CVCR\fi\ Technical Report
+      \reportyear-\reportno\ifthenelse{\revisionno = 0}{}{-R\revisionno}}\\
+    \vskip 0.4in
+  \includegraphics[height=0.7in]{lehigh} 
+  \hfill
+  \ifcoral
+    \ifcvcr
+      \includegraphics[height=0.7in]{coral}
+      \hfill
+      \includegraphics[height=0.7in]{cvcr}
+    \else
+      \includegraphics[height=0.7in]{coral}
+    \fi
+  \else
+    \ifcvcr
+      \includegraphics[height=0.7in]{cvcr}
+    \fi
+  \fi
+  \hfill
+  \end{center}
+\ifthenelse{\revisionno = 0}
+{\date{\originaldate}}
+{\date{Original Publication: \originaldate \\[0.05in] Last Revised: \revisiondate}}
+\let\thanks\oldthanks
+\let\tabular\oldtabular
+\let\endtabular\oldendtabular
+%\let\coraltitlepage=\titlepage
+%\def\titlepage
+%  {{\renewenvironment{tabular}[2][]{\begin{center}}
+%                                   {\end{center}}
+%  \coraltitlepage}}
+%  \global\let\@thanks\@empty
+\setcounter{Maxaffil}{0}
+  \newpage
+}

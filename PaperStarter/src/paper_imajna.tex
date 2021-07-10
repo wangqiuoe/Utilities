@@ -1,0 +1,82 @@
+%**********
+% Preamble
+%**********
+\documentclass{imanum}
+\jno{drnxxx}
+\received{\today}
+
+%**********
+% Requires
+%**********
+\RequirePackage{amsmath}
+\RequirePackage{amsfonts}
+\RequirePackage{amssymb}
+%\RequirePackage{hyperref}
+\RequirePackage{multirow}
+\RequirePackage{algorithm}
+\RequirePackage{algpseudocode}
+\RequirePackage{graphicx}
+\RequirePackage{xcolor}
+%\RequirePackage{amsthm}
+\allowdisplaybreaks
+
+%*************
+% Use Packages
+%*************
+\usepackage{dpr_fec,dsfont}
+
+%*************
+% New theorems
+%*************
+\newtheorem{assumption}{Assumption}[section]
+%\newtheorem{definition}{Definition}[section]
+
+%**********
+% Document
+%**********
+\begin{document}
+
+%**********
+% Headings
+%**********
+\title{A Self-Correcting Variable-Metric Framework for Nonsmooth Optimization}
+\shorttitle{Self-Correcting Variable-Metric Algorithms for Nonsmooth Optimization}
+
+\author{{\sc Frank E. Curtis\thanks{Corresponding author. Email: frank.e.curtis@gmail.com}}\\[2pt]
+             Department of Industrial and Systems Engineering, Lehigh University\\[6pt]
+        {\sc Daniel P.~Robinson\thanks{Email: daniel.p.robinson@gmail.com}}\\[2pt]
+             Department of Applied Mathematics and Statistics, Johns Hopkins University\\[6pt]
+        {\sc Baoyu Zhou\thanks{Email: baz216@lehigh.edu}}\\[2pt]
+             Department of Industrial and Systems Engineering, Lehigh University}
+\shortauthorlist{F.~E.~Curtis \emph{et al.}}
+
+% Title
+\maketitle
+
+%**********
+% Abstract
+%**********
+\begin{abstract}
+  {\input{abstract}}
+  {nonlinear optimization, nonsmooth optimization, variable-metric algorithms, quasi-Newton methods, self-correcting properties of BFGS updating}
+\end{abstract}
+
+%*****
+% AMS
+%*****
+%\begin{AMS}
+%  49M15, 49M37, 65K05, 90C15, 90C30, 90C53
+%\end{AMS}
+
+%**************
+% Body of paper
+%**************
+\input{body}
+
+%**************
+% Bibliography
+%**************
+\bibliographystyle{IMANUM-BIB}
+\bibliography{references}
+
+\end{document}
