@@ -1,11 +1,13 @@
 Use this project to start a new research paper.  
 
 *Directories Needed*  
+
 The following directories should be downloaded from the "Utilities" repository.
 - PaperStarter  
 - LaTeX  
 
 *Environment Variables Needed*  
+
 Environment variables for linux/unix based machines are typically set in a .bashrc file.
 In order to use this package, you must have the following environment variables defined.  
    - DPRFECLATEX  : this should be set to the path of the LaTeX directory described above.
