@@ -26,6 +26,6 @@ project in his terminal from any directory on his machine.  We suggest you do th
 
 *Use*  
 If your environment variables are set up properly, you should be able to run the command  
-   paper_starter  
+&nbsp;&nbsp;&nbsp;&nbsp;paper_starter  
 in your terminal to start a new paper. If it starts asking you questions in the terminal,
 then things should be workign properly.  Good luck!
