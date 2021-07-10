@@ -1,8 +1,9 @@
 Use this project to start a new research paper.  
 
 *Directories Needed*  
-- Download the directory "PaperStarter", which contains the readme file that you are currently reading.
-- Download the directory "LaTeX" from the "Utilities" repository.
+The following directories should be downloaded from the "Utilities" repository.
+- PaperStarter  
+- LaTeX  
 
 *Environment Variables Needed*  
 Environment variables for linux/unix based machines are typically set in a .bashrc file.
