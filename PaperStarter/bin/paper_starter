@@ -7,7 +7,7 @@ printf "\n"
 printf "What do you want to do? \n"
 printf "0) Start a new paper. \n"
 printf "1) Change the journal template or file name of paper. \n\n"
-printf "Please enter a number 0-1. "
+printf "Please enter a number 0-1, then hit Enter: "
 read response
 case $response in
    [0-1] )
@@ -23,8 +23,8 @@ esac
 # Get the desired name for the paper.
 #=======================================================
 
-printf "What name should be used for the paper FILES? (e.g. noncovex_complexity or FaRSA)\n"
-printf "Please type the name.\n"
+printf "What name should be used for the paper FILES? (e.g. noncovex_complexity or FaRSA)\n\n"
+printf "Please type a name, then hit Enter: "
 read papername
 
 #=======================================================
@@ -37,7 +37,7 @@ printf "0) SIOPT \n"
 printf "1) MP \n"
 printf "2) IMAJNA \n"
 printf "3) OPTLETTERS \n\n"
-printf "Please enter a number 0-3."
+printf "Please enter a number 0-3, then hit Enter: "
 read journal
 case $journal in
    [0-3] )
