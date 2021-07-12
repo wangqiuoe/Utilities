@@ -17,10 +17,12 @@ Environment variables for Linux/Unix based operating systems are typically set i
 
 For example, this is how they are set in Daniel's .bashrc file on his Macbook:
 
+```
 PAPERSTARTER=/Users/danielrobinson/git/Utilities/PaperStarter
 DPRFECLATEX=/Users/danielrobinson/git/Utilities/LaTeX
 PATH="/Users/danielrobinson/Dropbox/daniel/git/Utilities/PaperStarter/bin:${PATH}"
 export PAPERSTARTER DPRFECLATEX PATH
+```
 
 In this example, notice that Daniel has appended his "PaperStarter/bin" directory to his PATH environment variable.  This allows him to run the executable file for the PaperStarter software in his terminal from within any directory on his computer.  We suggest that you do the same.
 
