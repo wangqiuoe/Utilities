@@ -1,0 +1,240 @@
+     AKIVA, variables =        2, equality =        0, inequality =        0, bounds =        0
+  ALLINITU, variables =        4, equality =        0, inequality =        0, bounds =        0
+   ARGLINA, variables =      200, equality =        0, inequality =        0, bounds =        0
+   ARGLINB, variables =      200, equality =        0, inequality =        0, bounds =        0
+   ARGLINC, variables =      200, equality =        0, inequality =        0, bounds =        0
+ ARGTRIGLS, variables =      200, equality =        0, inequality =        0, bounds =        0
+   ARWHEAD, variables =     5000, equality =        0, inequality =        0, bounds =        0
+  BA-L16LS, variables =    66462, equality =        0, inequality =        0, bounds =        0
+   BA-L1LS, variables =       57, equality =        0, inequality =        0, bounds =        0
+ BA-L1SPLS, variables =       57, equality =        0, inequality =        0, bounds =        0
+  BA-L21LS, variables =    34134, equality =        0, inequality =        0, bounds =        0
+  BA-L49LS, variables =    23769, equality =        0, inequality =        0, bounds =        0
+  BA-L52LS, variables =   192627, equality =        0, inequality =        0, bounds =        0
+  BA-L73LS, variables =    33753, equality =        0, inequality =        0, bounds =        0
+      BARD, variables =        3, equality =        0, inequality =        0, bounds =        0
+   BDQRTIC, variables =     5000, equality =        0, inequality =        0, bounds =        0
+     BEALE, variables =        2, equality =        0, inequality =        0, bounds =        0
+BENNETT5LS, variables =        3, equality =        0, inequality =        0, bounds =        0
+    BIGGS6, variables =        6, equality =        0, inequality =        0, bounds =        0
+       BOX, variables =    10000, equality =        0, inequality =        0, bounds =        0
+      BOX3, variables =        3, equality =        0, inequality =        0, bounds =        0
+  BOXBODLS, variables =        2, equality =        0, inequality =        0, bounds =        0
+  BOXPOWER, variables =    20000, equality =        0, inequality =        0, bounds =        0
+    BRKMCC, variables =        2, equality =        0, inequality =        0, bounds =        0
+   BROWNAL, variables =      200, equality =        0, inequality =        0, bounds =        0
+   BROWNBS, variables =        2, equality =        0, inequality =        0, bounds =        0
+  BROWNDEN, variables =        4, equality =        0, inequality =        0, bounds =        0
+BROYDN3DLS, variables =     5000, equality =        0, inequality =        0, bounds =        0
+  BROYDN7D, variables =     5000, equality =        0, inequality =        0, bounds =        0
+BROYDNBDLS, variables =     5000, equality =        0, inequality =        0, bounds =        0
+    BRYBND, variables =     5000, equality =        0, inequality =        0, bounds =        0
+  CHAINWOO, variables =     4000, equality =        0, inequality =        0, bounds =        0
+  CHNROSNB, variables =       50, equality =        0, inequality =        0, bounds =        0
+  CHNRSNBM, variables =       50, equality =        0, inequality =        0, bounds =        0
+CHWIRUT1LS, variables =        3, equality =        0, inequality =        0, bounds =        0
+CHWIRUT2LS, variables =        3, equality =        0, inequality =        0, bounds =        0
+     CLIFF, variables =        2, equality =        0, inequality =        0, bounds =        0
+    COSINE, variables =    10000, equality =        0, inequality =        0, bounds =        0
+  CRAGGLVY, variables =     5000, equality =        0, inequality =        0, bounds =        0
+      CUBE, variables =        2, equality =        0, inequality =        0, bounds =        0
+   CURLY10, variables =    10000, equality =        0, inequality =        0, bounds =        0
+   CURLY20, variables =    10000, equality =        0, inequality =        0, bounds =        0
+   CURLY30, variables =    10000, equality =        0, inequality =        0, bounds =        0
+ DANWOODLS, variables =        2, equality =        0, inequality =        0, bounds =        0
+  DENSCHNA, variables =        2, equality =        0, inequality =        0, bounds =        0
+  DENSCHNB, variables =        2, equality =        0, inequality =        0, bounds =        0
+  DENSCHNC, variables =        2, equality =        0, inequality =        0, bounds =        0
+  DENSCHND, variables =        3, equality =        0, inequality =        0, bounds =        0
+  DENSCHNE, variables =        3, equality =        0, inequality =        0, bounds =        0
+  DENSCHNF, variables =        2, equality =        0, inequality =        0, bounds =        0
+  DIXMAANA, variables =     3000, equality =        0, inequality =        0, bounds =        0
+  DIXMAANB, variables =     3000, equality =        0, inequality =        0, bounds =        0
+  DIXMAANC, variables =     3000, equality =        0, inequality =        0, bounds =        0
+  DIXMAAND, variables =     3000, equality =        0, inequality =        0, bounds =        0
+  DIXMAANE, variables =     3000, equality =        0, inequality =        0, bounds =        0
+  DIXMAANF, variables =     3000, equality =        0, inequality =        0, bounds =        0
+  DIXMAANG, variables =     3000, equality =        0, inequality =        0, bounds =        0
+  DIXMAANH, variables =     3000, equality =        0, inequality =        0, bounds =        0
+  DIXMAANI, variables =     3000, equality =        0, inequality =        0, bounds =        0
+  DIXMAANJ, variables =     3000, equality =        0, inequality =        0, bounds =        0
+  DIXMAANK, variables =     3000, equality =        0, inequality =        0, bounds =        0
+  DIXMAANL, variables =     3000, equality =        0, inequality =        0, bounds =        0
+  DIXMAANM, variables =     3000, equality =        0, inequality =        0, bounds =        0
+  DIXMAANN, variables =     3000, equality =        0, inequality =        0, bounds =        0
+  DIXMAANO, variables =     3000, equality =        0, inequality =        0, bounds =        0
+  DIXMAANP, variables =     3000, equality =        0, inequality =        0, bounds =        0
+  DIXON3DQ, variables =    10000, equality =        0, inequality =        0, bounds =        0
+      DJTL, variables =        2, equality =        0, inequality =        0, bounds =        0
+DMN15102LS, variables =       66, equality =        0, inequality =        0, bounds =        0
+DMN15103LS, variables =       99, equality =        0, inequality =        0, bounds =        0
+DMN15332LS, variables =       66, equality =        0, inequality =        0, bounds =        0
+DMN15333LS, variables =       99, equality =        0, inequality =        0, bounds =        0
+DMN37142LS, variables =       66, equality =        0, inequality =        0, bounds =        0
+DMN37143LS, variables =       99, equality =        0, inequality =        0, bounds =        0
+   DQDRTIC, variables =     5000, equality =        0, inequality =        0, bounds =        0
+    DQRTIC, variables =     5000, equality =        0, inequality =        0, bounds =        0
+ECKERLE4LS, variables =        3, equality =        0, inequality =        0, bounds =        0
+   EDENSCH, variables =     2000, equality =        0, inequality =        0, bounds =        0
+       EG2, variables =     1000, equality =        0, inequality =        0, bounds =        0
+  EIGENALS, variables =     2550, equality =        0, inequality =        0, bounds =        0
+  EIGENBLS, variables =     2550, equality =        0, inequality =        0, bounds =        0
+  EIGENCLS, variables =     2652, equality =        0, inequality =        0, bounds =        0
+   ENGVAL1, variables =     5000, equality =        0, inequality =        0, bounds =        0
+   ENGVAL2, variables =        3, equality =        0, inequality =        0, bounds =        0
+    ENSOLS, variables =        9, equality =        0, inequality =        0, bounds =        0
+  ERRINROS, variables =       50, equality =        0, inequality =        0, bounds =        0
+  ERRINRSM, variables =       50, equality =        0, inequality =        0, bounds =        0
+    EXPFIT, variables =        2, equality =        0, inequality =        0, bounds =        0
+  EXTROSNB, variables =     1000, equality =        0, inequality =        0, bounds =        0
+ FBRAIN3LS, variables =        6, equality =        0, inequality =        0, bounds =        0
+  FLETBV3M, variables =     5000, equality =        0, inequality =        0, bounds =        0
+  FLETCBV2, variables =     5000, equality =        0, inequality =        0, bounds =        0
+  FLETCBV3, variables =     5000, equality =        0, inequality =        0, bounds =        0
+  FLETCHBV, variables =     5000, equality =        0, inequality =        0, bounds =        0
+  FLETCHCR, variables =     1000, equality =        0, inequality =        0, bounds =        0
+  FMINSRF2, variables =     5625, equality =        0, inequality =        0, bounds =        0
+  FMINSURF, variables =     5625, equality =        0, inequality =        0, bounds =        0
+  FREUROTH, variables =     5000, equality =        0, inequality =        0, bounds =        0
+  GAUSS1LS, variables =        8, equality =        0, inequality =        0, bounds =        0
+  GAUSS2LS, variables =        8, equality =        0, inequality =        0, bounds =        0
+  GAUSS3LS, variables =        8, equality =        0, inequality =        0, bounds =        0
+  GAUSSIAN, variables =        3, equality =        0, inequality =        0, bounds =        0
+  GBRAINLS, variables =        2, equality =        0, inequality =        0, bounds =        0
+  GENHUMPS, variables =     5000, equality =        0, inequality =        0, bounds =        0
+   GENROSE, variables =      500, equality =        0, inequality =        0, bounds =        0
+  GROWTHLS, variables =        3, equality =        0, inequality =        0, bounds =        0
+      GULF, variables =        3, equality =        0, inequality =        0, bounds =        0
+   HAHN1LS, variables =        7, equality =        0, inequality =        0, bounds =        0
+     HAIRY, variables =        2, equality =        0, inequality =        0, bounds =        0
+   HATFLDD, variables =        3, equality =        0, inequality =        0, bounds =        0
+   HATFLDE, variables =        3, equality =        0, inequality =        0, bounds =        0
+  HATFLDFL, variables =        3, equality =        0, inequality =        0, bounds =        0
+  HEART6LS, variables =        6, equality =        0, inequality =        0, bounds =        0
+  HEART8LS, variables =        8, equality =        0, inequality =        0, bounds =        0
+     HELIX, variables =        3, equality =        0, inequality =        0, bounds =        0
+    HIELOW, variables =        3, equality =        0, inequality =        0, bounds =        0
+  HILBERTA, variables =        2, equality =        0, inequality =        0, bounds =        0
+  HILBERTB, variables =       10, equality =        0, inequality =        0, bounds =        0
+  HIMMELBB, variables =        2, equality =        0, inequality =        0, bounds =        0
+  HIMMELBF, variables =        4, equality =        0, inequality =        0, bounds =        0
+  HIMMELBG, variables =        2, equality =        0, inequality =        0, bounds =        0
+  HIMMELBH, variables =        2, equality =        0, inequality =        0, bounds =        0
+     HUMPS, variables =        2, equality =        0, inequality =        0, bounds =        0
+  HYDC20LS, variables =       99, equality =        0, inequality =        0, bounds =        0
+     INDEF, variables =     5000, equality =        0, inequality =        0, bounds =        0
+    INDEFM, variables =   100000, equality =        0, inequality =        0, bounds =        0
+ INTEQNELS, variables =       12, equality =        0, inequality =        0, bounds =        0
+    JENSMP, variables =        2, equality =        0, inequality =        0, bounds =        0
+    JIMACK, variables =     3549, equality =        0, inequality =        0, bounds =        0
+  KIRBY2LS, variables =        5, equality =        0, inequality =        0, bounds =        0
+    KOWOSB, variables =        4, equality =        0, inequality =        0, bounds =        0
+LANCZOS1LS, variables =        6, equality =        0, inequality =        0, bounds =        0
+LANCZOS2LS, variables =        6, equality =        0, inequality =        0, bounds =        0
+LANCZOS3LS, variables =        6, equality =        0, inequality =        0, bounds =        0
+   LIARWHD, variables =     5000, equality =        0, inequality =        0, bounds =        0
+  LOGHAIRY, variables =        2, equality =        0, inequality =        0, bounds =        0
+    LSC1LS, variables =        3, equality =        0, inequality =        0, bounds =        0
+    LSC2LS, variables =        3, equality =        0, inequality =        0, bounds =        0
+LUKSAN11LS, variables =      100, equality =        0, inequality =        0, bounds =        0
+LUKSAN12LS, variables =       98, equality =        0, inequality =        0, bounds =        0
+LUKSAN13LS, variables =       98, equality =        0, inequality =        0, bounds =        0
+LUKSAN14LS, variables =       98, equality =        0, inequality =        0, bounds =        0
+LUKSAN15LS, variables =      100, equality =        0, inequality =        0, bounds =        0
+LUKSAN16LS, variables =      100, equality =        0, inequality =        0, bounds =        0
+LUKSAN17LS, variables =      100, equality =        0, inequality =        0, bounds =        0
+LUKSAN21LS, variables =      100, equality =        0, inequality =        0, bounds =        0
+LUKSAN22LS, variables =      100, equality =        0, inequality =        0, bounds =        0
+   MANCINO, variables =      100, equality =        0, inequality =        0, bounds =        0
+  MARATOSB, variables =        2, equality =        0, inequality =        0, bounds =        0
+    MEXHAT, variables =        2, equality =        0, inequality =        0, bounds =        0
+    MEYER3, variables =        3, equality =        0, inequality =        0, bounds =        0
+   MGH09LS, variables =        4, equality =        0, inequality =        0, bounds =        0
+   MGH10LS, variables =        3, equality =        0, inequality =        0, bounds =        0
+   MGH17LS, variables =        5, equality =        0, inequality =        0, bounds =        0
+ MISRA1ALS, variables =        2, equality =        0, inequality =        0, bounds =        0
+ MISRA1BLS, variables =        2, equality =        0, inequality =        0, bounds =        0
+ MISRA1CLS, variables =        2, equality =        0, inequality =        0, bounds =        0
+ MISRA1DLS, variables =        2, equality =        0, inequality =        0, bounds =        0
+ MNISTS0LS, variables =      494, equality =        0, inequality =        0, bounds =        0
+ MNISTS5LS, variables =      494, equality =        0, inequality =        0, bounds =        0
+  MODBEALE, variables =    20000, equality =        0, inequality =        0, bounds =        0
+    MOREBV, variables =     5000, equality =        0, inequality =        0, bounds =        0
+  MSQRTALS, variables =     1024, equality =        0, inequality =        0, bounds =        0
+  MSQRTBLS, variables =     1024, equality =        0, inequality =        0, bounds =        0
+     NCB20, variables =     5010, equality =        0, inequality =        0, bounds =        0
+    NCB20B, variables =     5000, equality =        0, inequality =        0, bounds =        0
+  NELSONLS, variables =        3, equality =        0, inequality =        0, bounds =        0
+  NONCVXU2, variables =     5000, equality =        0, inequality =        0, bounds =        0
+  NONCVXUN, variables =     5000, equality =        0, inequality =        0, bounds =        0
+    NONDIA, variables =     5000, equality =        0, inequality =        0, bounds =        0
+  NONDQUAR, variables =     5000, equality =        0, inequality =        0, bounds =        0
+  NONMSQRT, variables =     4900, equality =        0, inequality =        0, bounds =        0
+  OSBORNEA, variables =        5, equality =        0, inequality =        0, bounds =        0
+  OSBORNEB, variables =       11, equality =        0, inequality =        0, bounds =        0
+  OSCIGRAD, variables =   100000, equality =        0, inequality =        0, bounds =        0
+  OSCIPATH, variables =       10, equality =        0, inequality =        0, bounds =        0
+  PALMER1C, variables =        8, equality =        0, inequality =        0, bounds =        0
+  PALMER1D, variables =        7, equality =        0, inequality =        0, bounds =        0
+  PALMER2C, variables =        8, equality =        0, inequality =        0, bounds =        0
+  PALMER3C, variables =        8, equality =        0, inequality =        0, bounds =        0
+  PALMER4C, variables =        8, equality =        0, inequality =        0, bounds =        0
+  PALMER5C, variables =        6, equality =        0, inequality =        0, bounds =        0
+  PALMER5D, variables =        4, equality =        0, inequality =        0, bounds =        0
+  PALMER6C, variables =        8, equality =        0, inequality =        0, bounds =        0
+  PALMER7C, variables =        8, equality =        0, inequality =        0, bounds =        0
+  PALMER8C, variables =        8, equality =        0, inequality =        0, bounds =        0
+    PARKCH, variables =       15, equality =        0, inequality =        0, bounds =        0
+  PENALTY1, variables =     1000, equality =        0, inequality =        0, bounds =        0
+  PENALTY2, variables =      200, equality =        0, inequality =        0, bounds =        0
+  PENALTY3, variables =      200, equality =        0, inequality =        0, bounds =        0
+POWELLBSLS, variables =        2, equality =        0, inequality =        0, bounds =        0
+  POWELLSG, variables =     5000, equality =        0, inequality =        0, bounds =        0
+     POWER, variables =    10000, equality =        0, inequality =        0, bounds =        0
+    QUARTC, variables =     5000, equality =        0, inequality =        0, bounds =        0
+   RAT42LS, variables =        3, equality =        0, inequality =        0, bounds =        0
+   RAT43LS, variables =        4, equality =        0, inequality =        0, bounds =        0
+   ROSENBR, variables =        2, equality =        0, inequality =        0, bounds =        0
+ ROSENBRTU, variables =        2, equality =        0, inequality =        0, bounds =        0
+ROSZMAN1LS, variables =        4, equality =        0, inequality =        0, bounds =        0
+      S308, variables =        2, equality =        0, inequality =        0, bounds =        0
+   SBRYBND, variables =     5000, equality =        0, inequality =        0, bounds =        0
+  SCHMVETT, variables =     5000, equality =        0, inequality =        0, bounds =        0
+   SCOSINE, variables =     5000, equality =        0, inequality =        0, bounds =        0
+  SCURLY10, variables =    10000, equality =        0, inequality =        0, bounds =        0
+  SCURLY20, variables =    10000, equality =        0, inequality =        0, bounds =        0
+  SCURLY30, variables =    10000, equality =        0, inequality =        0, bounds =        0
+   SENSORS, variables =      100, equality =        0, inequality =        0, bounds =        0
+   SINEVAL, variables =        2, equality =        0, inequality =        0, bounds =        0
+   SINQUAD, variables =     5000, equality =        0, inequality =        0, bounds =        0
+    SISSER, variables =        2, equality =        0, inequality =        0, bounds =        0
+     SNAIL, variables =        2, equality =        0, inequality =        0, bounds =        0
+  SPARSINE, variables =     5000, equality =        0, inequality =        0, bounds =        0
+  SPARSQUR, variables =    10000, equality =        0, inequality =        0, bounds =        0
+  SPMSRTLS, variables =     4999, equality =        0, inequality =        0, bounds =        0
+  SROSENBR, variables =     5000, equality =        0, inequality =        0, bounds =        0
+  SSBRYBND, variables =     5000, equality =        0, inequality =        0, bounds =        0
+  SSCOSINE, variables =     5000, equality =        0, inequality =        0, bounds =        0
+       SSI, variables =        3, equality =        0, inequality =        0, bounds =        0
+   STRATEC, variables =       10, equality =        0, inequality =        0, bounds =        0
+     STREG, variables =        4, equality =        0, inequality =        0, bounds =        0
+  TESTQUAD, variables =     5000, equality =        0, inequality =        0, bounds =        0
+ THURBERLS, variables =        7, equality =        0, inequality =        0, bounds =        0
+  TOINTGOR, variables =       50, equality =        0, inequality =        0, bounds =        0
+  TOINTGSS, variables =     5000, equality =        0, inequality =        0, bounds =        0
+  TOINTPSP, variables =       50, equality =        0, inequality =        0, bounds =        0
+  TOINTQOR, variables =       50, equality =        0, inequality =        0, bounds =        0
+  TQUARTIC, variables =     5000, equality =        0, inequality =        0, bounds =        0
+    TRIDIA, variables =     5000, equality =        0, inequality =        0, bounds =        0
+    VARDIM, variables =      200, equality =        0, inequality =        0, bounds =        0
+  VAREIGVL, variables =       50, equality =        0, inequality =        0, bounds =        0
+ VESUVIALS, variables =        8, equality =        0, inequality =        0, bounds =        0
+ VESUVIOLS, variables =        8, equality =        0, inequality =        0, bounds =        0
+VESUVIOULS, variables =        8, equality =        0, inequality =        0, bounds =        0
+  VIBRBEAM, variables =        8, equality =        0, inequality =        0, bounds =        0
+    WATSON, variables =       12, equality =        0, inequality =        0, bounds =        0
+     WOODS, variables =     4000, equality =        0, inequality =        0, bounds =        0
+   YATP1LS, variables =   123200, equality =        0, inequality =        0, bounds =        0
+   YATP2LS, variables =   123200, equality =        0, inequality =        0, bounds =        0
+     YFITU, variables =        3, equality =        0, inequality =        0, bounds =        0
+  ZANGWIL2, variables =        2, equality =        0, inequality =        0, bounds =        0
