@@ -1,34 +1,38 @@
-Use this project to start a new research paper.  
+Use the software in this directory to start a new paper.
 
-*Directories Needed*  
+Required Directories
+--------------------
 
-The following directories should be downloaded from the "Utilities" repository:
-- PaperStarter  
-- LaTeX  
+The following directories should be downloaded onto your computer, either individually or as part of the entire "Utilities" repository:
+- PaperStarter
+- LaTeX
 
-*Environment Variables Needed*  
+Environment Variables
+---------------------
 
-Environment variables for linux/unix based machines are typically set in a .bashrc file.
-In order to use this package, you must have the following environment variables defined:  
-   - DPRFECLATEX  : this should be set to the path of the LaTeX directory described above.
-   - PAPERSTARTER : this should be set to the path of the PaperStarter directory described above.
+Environment variables for Linux/Unix based operating systems are typically set in a script in your home directory, such as a .bashrc file.  In order to use this software, you must have the following environment variables defined:
 
-For example, here is how they are set on Daniel Robinson's mac inside of his .bashrc file:
+- PAPERSTARTER : should be set to the path of the PaperStarter directory mentioned above
+- DPRFECLATEX  : should be set to the path of the LaTeX directory mentioned above
 
-   DPRFECLATEX=/Users/danielrobinson/git/Utilities/LaTeX  
-   PAPERSTARTER=/Users/danielrobinson/git/Utilities/PaperStarter  
-   PATH="/Users/danielrobinson/Dropbox/daniel/git/Utilities/PaperStarter/bin:${PATH}"  
-   export PAPERSTARTER DPRFECLATEX PATH  
+For example, this is how they are set in Daniel's .bashrc file on his Macbook:
 
-In this example, notice that Daniel has appended the "bin" directory inside of "PaperStarter"
-to his PATH environment variable.  This allows him to run the executable file for this 
-project in his terminal from any directory on his machine.  We suggest you do the same.
+PAPERSTARTER=/Users/danielrobinson/git/Utilities/PaperStarter
+DPRFECLATEX=/Users/danielrobinson/git/Utilities/LaTeX
+PATH="/Users/danielrobinson/Dropbox/daniel/git/Utilities/PaperStarter/bin:${PATH}"
+export PAPERSTARTER DPRFECLATEX PATH
 
-*Use*  
-If your environment variables are set up properly, you should be able to run the command  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; paper_starter  
-in your terminal to start a new paper. If it starts asking you questions in the terminal,
-things are working.  Good luck and happy writing!
+In this example, notice that Daniel has appended his "PaperStarter/bin" directory to his PATH environment variable.  This allows him to run the executable file for the PaperStarter software in his terminal from within any directory on his computer.  We suggest that you do the same.
 
-Regards,  
-Daniel and Frank
+Usage
+-----
+
+If your environment variables are set properly, then you should be able to run the command
+
+```
+paper_starter
+```
+
+from your terminal to start a new paper.  Be sure to run the command from the directory in which you want to place the new paper.  You know it is working correctly if you are prompted with a series of questions to answer.
+
+Good luck!
