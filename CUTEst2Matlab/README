@@ -72,24 +72,14 @@ any errors occur during this process and you need to re-run this script,
 then remember to delete the list files before re-running the script.  This
 is because the problem names are *appended* to whatever lists already exist.
 
-7) Move the files
-
-solveCUTEstProblem.m and
-solve.sh
-
-to whatever directory you want to use for running and collecting the results
-from your experiment.  Let us call this your experiment directory.  In your
-experiment directory, open the file named
+7) In the directory with this README file, edit
 
 solveCUTEstProblem.m
 
-in an editor.  You will need to edit this file to refer to directory names
-that are specific for your computer, and to set up the algorithms that you
-want to run for your experiment.  (As written, the file presumes that your
-experiment directory is the same as the one that contains this README file
-and that two instances of the 'StochasticSQP' solver are to be run.)
+to accustomize your solver and collect the results
+from your experiment. 
 
-8) In your experiment directory, create files called
+8) In the directory with this README file, create files called
 
 list_solve.txt and
 list_algorithms.txt
@@ -98,15 +88,16 @@ that contain the list of all CUTEst problems that you want to solve for
 your experiments (which may may be a copy of one of the files produced by the
 check.sh script) and the list of names of algorithms you want to run, respectively.
 
-9) In your experiment directory, open the file named
+9) In the directory with this README file, open the file named
 
-solve.sh
+solve.sh or run
 
-in an editor.  You will need to edit this file to refer to your Matlab executable.
+sh solve.sh -h
 
-10) In your experiment directory, run
+from a terminal to see the help of optional parameters.  
 
-./solve.sh
+10) In the directory with this README file, run
 
-from a terminal.  This will create an output directory that will collect the
-output from your experiments.
+sh solve.sh
+
+from a terminal with appropriate options.
