@@ -1,4 +1,4 @@
-function checkConstraintsType(name)
+function checkConstraintsType(name, user_dir)
 
 % Add CUTEst-to-Matlab directory to path
 addpath('/usr/local/opt/cutest/libexec/src/matlab');
@@ -9,7 +9,7 @@ foute = fopen('list_equality_constrained.txt','a');
 foutg = fopen('list_generally_constrained.txt','a');
 
 % Move to directory of problem 'name' (input to this function)
-cd(sprintf('/Users/frankecurtis/Dropbox/git/Utilities/CUTEst2Matlab/decoded/%s',name));
+cd(sprintf('%s/decoded/%s',user_dir,name));
 
 % Set up CUTEst
 prob = cutest_setup();
@@ -33,10 +33,12 @@ end
 cutest_terminate;
 
 % Move back to script directory
-cd('/Users/frankecurtis/Dropbox/git/Utilities/CUTEst2Matlab');
+cd(user_dir);
 
 % Print sizes
-fprintf(' variables = %8d, equality = %8d, inequality = %8d, bounds = %8d',n_vars,n_cone,n_coni,n_conb);
+fileID = fopen(sprintf('%s/problem_info.txt', user_dir), 'a');
+fprintf(fileID, '%10s, variables = %8d, equality = %8d, inequality = %8d, bounds = %8d\n',name, n_vars,n_cone,n_coni,n_conb);
+fclose(fileID);
 
 % Add problem name to appropriate list
 if n_conb == 0 && n_cons == 0
@@ -54,3 +56,4 @@ end
 fclose(foutu);
 fclose(foute);
 fclose(foutg);
+

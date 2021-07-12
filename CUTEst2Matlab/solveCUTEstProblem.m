@@ -1,42 +1,59 @@
-function solveCUTEstProblem(name,algorithm)
-
-% Add source files to path
-addpath('/Users/frankecurtis/Dropbox/git/StochasticSQP/StochasticSQP/problems/');
-addpath('/Users/frankecurtis/Dropbox/git/StochasticSQP/StochasticSQP/src/');
-addpath('/usr/local/opt/cutest/libexec/src/matlab');
+function solveCUTEstProblem(name,algorithm, user_dir, algorithm_perf_sub_dir)
 
 % Move to problem directory
-cd(sprintf('/Users/frankecurtis/Dropbox/git/Utilities/CUTEst2Matlab/decoded/%s',name));
+cd(sprintf('%s/decoded/%s',user_dir,name));
+% Add source files to path
+addpath('/usr/local/opt/cutest/libexec/src/matlab');
 
-% Create objects
-P = ProblemCUTEst;
-S = StochasticSQP;
+% ------- subject to change for your own solver ------------------
+% Add matlab solver to path
+addpath('/Users/wangqi/Desktop/nonlinear-optimization-course/MATLAB/algorithms/')
+addpath(sprintf('/Users/wangqi/Desktop/nonlinear-optimization-course/MATLAB/algorithms/%s', algorithm))
 
-% Add file report
-S.reporter.addFileReport(Enumerations.R_SOLVER,Enumerations.R_PER_ITERATION,...
-                         sprintf('/Users/frankecurtis/Dropbox/git/Utilities/CUTEst2Matlab/output/%s_%s.out',name,algorithm));
+% Create problem objects and parameters
+P = cutest_setup();
+S = str2func(algorithm);
 
-% Set options
-if strcmp(algorithm,'Subgradient')
-  S.options.modifyOption(S.reporter,'direction_computation','Subgradient');
-  S.options.modifyOption(S.reporter,'merit_parameter_computation','Fixed');
-  S.options.modifyOption(S.reporter,'stepsize_computation','Conservative');
-  S.options.modifyOption(S.reporter,'merit_parameter_initial',1e-04);
-  S.options.modifyOption(S.reporter,'SCC_stepsize_scaling',1e-01);
-end
+% common parameters
+[n,~] = cutest_dims();
+hands.f_hand = @cutest_obj;
+hands.g_hand = @cutest_grad;
+hands.H_hand = @cutest_hess;
+hands.Hv_hand = @cutest_hprod;
+x0 = P.x;
+params.maxtime    = 10*60;   % max 10 minutes for each instance
+params.maxiter    = 1e+5;
+params.printlevel = 0;
+params.tol        = 1e-8;
+
+% Trust Region parameters
+params.step_type   = 'NewtonCG'; %'NewtonCG';%'CauchyStep'; %'More-Sorensen';
+params.gamma_d = 0.5;
+params.gamma_i = 2;
+params.eta_vs  = 0.1;
+params.eta_s   = 0.1;
+params.delta_max = 1e+8;
+params.gamma_ub = 1e+8;
+params.gamma_lb = 1e-8;
 
 % Optimize
-S.optimize(P);
-
-% Solution (best)
-[x,yE,yI,infeasibility,stationarity] = S.solution;
+[x, info] = S(hands, x0, params);
+f         = info.f;
+iter      = info.iter;
+status    = info.status;
+if status ~= 0
+    iter = -1;
+    f    = -1;
+end
 
 % Save solution
-save(sprintf('/Users/frankecurtis/Dropbox/git/Utilities/CUTEst2Matlab/output/%s_%s.mat',name,algorithm),'x','yE','yI','infeasibility','stationarity');
+fileID = fopen(sprintf('%s/%s/%s.txt', user_dir, algorithm_perf_sub_dir, algorithm), 'a');
+fprintf(fileID, '%s\t%g\t%.8f\n', name, iter, f);
+fclose(fileID);
+% ------------------------------------------------------------------
 
-% Delete objects
-delete(P);
-delete(S);
+% Delete
+cutest_terminate;
 
 % Move back
-cd('/Users/frankecurtis/Dropbox/git/Utilities/CUTEst2Matlab');
+cd(user_dir);
