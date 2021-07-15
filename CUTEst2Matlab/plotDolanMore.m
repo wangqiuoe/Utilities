@@ -46,7 +46,7 @@ function plotDolanMore(user_dir, algorithm_perf_sub_dir)
 % - All input files must have the same number of lines
 
 
-full_path = sprintf('%s/%s/*.txt',user_dir,algorithm_perf_sub_dir);
+full_path = sprintf('%s/%s/measure_*.txt',user_dir,algorithm_perf_sub_dir);
 files_struct = dir(full_path);
 files      = cell(length(files_struct),1);
 algorithms = cell(length(files_struct),1);
@@ -61,7 +61,7 @@ algorithms = replace(algorithms, '_', '-');
 
 
 % File format per line
-file_format = '%s %d %f';
+file_format = '%s\t%d\t%f\t%f\t%d\t%d';
 
 % Column to consider
 column = 2;
@@ -76,4 +76,4 @@ options.tau_max = 10;
 addpath(sprintf('%s/PerformanceProfilers/src/Matlab/', user_dir));
 
 % Call profiler
-profilerDolanMore(files,algorithms,file_format,column,options, user_dir);
+profilerDolanMore(files,algorithms,file_format,column,options, user_dir, algorithm_perf_sub_dir);

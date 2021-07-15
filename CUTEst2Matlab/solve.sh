@@ -46,27 +46,50 @@ fi
 
 if [ $optimize == 1 ]
 then
-    # remove existed algorithm performance sub
-    if [ -d $algorithm_perf_sub_dir ]
-    then
-        rm $algorithm_perf_sub_dir/*
-    fi
+
+    # Loop through list of algorithms
+    while IFS= read -r algorithm
+    do 
     
-    # Loop through list of problems
-    while IFS= read -r problem
-    do
+        # extract algorithm full name
+        params=(${algorithm//,/ })
+        fullname=''
+        for i in ${!params[@]}
+        do
+            param=${params[$i]}
+            kv=(${param//=/ })
+            if [ $i -eq 0 ]
+            then
+                fullname=${kv[1]}
+            else
+                fullname=$fullname-${kv[1]}
+            fi
+        done
+
+        # remove existed algorithm performance measure txt file
+        filename=$algorithm_perf_sub_dir/measure_$fullname.txt
+        if [ -f $filename ]
+        then
+            rm $filename
+        fi
+
+        # remove existed algorithm iteration log file
+        filename=$algorithm_perf_sub_dir/log_$fullname.out
+        if [ -f $filename ]
+        then
+            rm $filename
+        fi
+
+        # Loop through list of problems
+        while IFS= read -r problem
+        do
+            # Run solveCUTEstProblem
+            /Applications/MATLAB_R2021a.app/bin/matlab -nodisplay -nodesktop -nosplash -nojvm -r "fprintf('Solving %s with %s...\n','$problem','$algorithm'); solveCUTEstProblem('$problem','$algorithm', '$user_dir', '$algorithm_perf_sub_dir'); fprintf(' done.\n'); exit;"
     
-      # Loop through list of algorithms
-      while IFS= read -r algorithm
-      do
-    
-        # Run solveCUTEstProblem
-        /Applications/MATLAB_R2021a.app/bin/matlab -nodisplay -nodesktop -nosplash -nojvm -r "fprintf('Solving %s with %s...','$problem','$algorithm'); solveCUTEstProblem('$problem','$algorithm', '$user_dir', '$algorithm_perf_sub_dir'); fprintf(' done.\n'); exit;"
-    
-      done < "$algorithm_list"
-    
-    done < "$problem_list"
+        done < "$problem_list"
+
+    done < "$algorithm_list"
 fi
 
 # Plot DolanMore Performance Profile
-/Applications/MATLAB_R2021a.app/bin/matlab -nodisplay -nodesktop -nosplash -r "fprintf('Plotting DolanMore Performance Profile...'); plotDolanMore('$user_dir', '$algorithm_perf_sub_dir');fprintf(' done.\n'); exit;"
+/Applications/MATLAB_R2021a.app/bin/matlab -nodisplay -nodesktop -nosplash -r "fprintf('Plotting DolanMore Performance Profile...\n'); plotDolanMore('$user_dir', '$algorithm_perf_sub_dir');fprintf(' done.\n'); exit;"
