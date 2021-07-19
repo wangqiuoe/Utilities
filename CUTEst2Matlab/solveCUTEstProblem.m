@@ -68,7 +68,16 @@ params.gamma_lb = 1e-8;
 params.outfileID = fopen(sprintf('%s/%s/log_%s.out', user_dir, algorithm_perf_sub_dir,algorithm_full_name),'a');
 
 % Optimize
-[x, info] = S(hands, x0, params);
+try
+    [x, info] = S(hands, x0, params);
+catch ME
+    fprintf('%s',ME.message);
+    info.f     = -1;
+    info.iter  = -1;
+    info.status= -1;
+    info.norm_g= -1;
+    info.time  = -1;
+end
 f         = info.f;
 iter      = info.iter;
 status    = info.status;
