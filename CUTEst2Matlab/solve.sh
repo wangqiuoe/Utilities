@@ -30,7 +30,7 @@ while getopts ":h:o:p:a:d:" arg; do
     d) # algorithm_perf_sub_dir, default output
       algorithm_perf_sub_dir=${OPTARG}
       ;;
-    h | *) # Display help.
+    h) # Display help.
       usage
       exit 0
       ;;
@@ -91,5 +91,8 @@ then
     done < "$algorithm_list"
 fi
 
-# Plot DolanMore Performance Profile
-/Applications/MATLAB_R2021a.app/bin/matlab -nodisplay -nodesktop -nosplash -r "fprintf('Plotting DolanMore Performance Profile...\n'); plotDolanMore('$user_dir', '$algorithm_perf_sub_dir');fprintf(' done.\n'); exit;"
+# Plot DolanMore Performance Profile of iteration
+/Applications/MATLAB_R2021a.app/bin/matlab -nodisplay -nodesktop -nosplash -r "fprintf('Plotting DolanMore Performance Profile...\n'); plotDolanMore('$user_dir', '$algorithm_perf_sub_dir', 2);fprintf(' done.\n'); exit;"
+
+# Plot DolanMore Performance Profile of running time
+/Applications/MATLAB_R2021a.app/bin/matlab -nodisplay -nodesktop -nosplash -r "fprintf('Plotting DolanMore Performance Profile...\n'); plotDolanMore('$user_dir', '$algorithm_perf_sub_dir', 6);fprintf(' done.\n'); exit;"

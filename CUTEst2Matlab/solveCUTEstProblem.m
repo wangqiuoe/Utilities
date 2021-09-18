@@ -58,13 +58,14 @@ end
 
 % Trust Region parameters
 setparams("step_type", "NewtonCG"); %'NewtonCG';%'CauchyStep'; %'More-Sorensen';
-setparams("eta_s", 1e-1); 
-params.gamma_d = 0.5;
-params.gamma_i = 2;
-params.eta_vs  = 0.9; %params.eta_s;
-params.delta_max = 1e+8;
-params.gamma_ub = 1e+8;
-params.gamma_lb = 1e-8;
+% below for standard trust region parameters
+%setparams("eta_s", 1e-1); 
+%params.gamma_d = 0.5;
+%params.gamma_i = 2;
+%params.eta_vs  = 0.9; %params.eta_s;
+%params.delta_max = 1e+8;
+%params.gamma_ub = 1e+8;
+%params.gamma_lb = 1e-8;
 params.outfileID = fopen(sprintf('%s/%s/log_%s.out', user_dir, algorithm_perf_sub_dir,algorithm_full_name),'a');
 
 % Optimize

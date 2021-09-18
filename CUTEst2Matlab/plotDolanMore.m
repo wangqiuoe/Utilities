@@ -1,4 +1,4 @@
-function plotDolanMore(user_dir, algorithm_perf_sub_dir)
+function plotDolanMore(user_dir, algorithm_perf_sub_dir, column)
 
 % plotDolanMore
 %
@@ -61,10 +61,10 @@ algorithms = replace(algorithms, '_', '-');
 
 
 % File format per line
-file_format = '%s\t%d\t%f\t%f\t%d\t%d';
+file_format = '%s\t%d\t%f\t%f\t%d\t%f';
 
 % Column to consider
-column = 2;
+column = column;
 
 % Log scale?
 options.log_scale = false;
@@ -74,6 +74,13 @@ options.tau_max = 10;
 
 % Add location of profiler to path
 addpath(sprintf('%s/PerformanceProfilers/src/Matlab/', user_dir));
+
+% title
+if column == 2
+    options.title='iteration';
+elseif column == 6
+    options.title='runningtime';
+end
 
 % Call profiler
 profilerDolanMore(files,algorithms,file_format,column,options, user_dir, algorithm_perf_sub_dir);
