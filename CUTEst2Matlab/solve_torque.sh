@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 # Set name of list of all problems to solve
 problem_list="list_unconstrained.txt"
@@ -52,7 +52,7 @@ then
     do 
     
         # extract algorithm full name
-        params=(${algorithm//,/ })
+        params=(${algorithm//|/ })
         fullname=''
         for i in ${!params[@]}
         do
@@ -83,8 +83,10 @@ then
         # Loop through list of problems
         while IFS= read -r problem
         do
+            echo log_${fullname}_${problem}.err
             # Run solveCUTEstProblem
-            /usr/local/matlab/R2014b/bin/matlab -nodisplay -nodesktop -nosplash -nojvm -r "fprintf('Solving %s with %s...\n','$problem','$algorithm'); solveCUTEstProblem('$problem','$algorithm', '$user_dir', '$algorithm_perf_sub_dir'); fprintf(' done.\n'); exit;"
+            qsub -q short -l mem=6gb -l vmem=6gb -e log_$fullname_$problem.err -o log_$fullname_$problem.out -v PROBLEM=$problem,ALGORITHM=${algorithm},USER_DIR=$user_dir,ALGORITHM_PERF_SUB_DIR=$algorithm_perf_sub_dir  run_one_problem.pbs
+            #qsub -q short -l mem=4gb -l vmem=4gb -e "log.err" -o "log.out" /usr/local/matlab/R2014b/bin/matlab -nodisplay -nodesktop -nosplash -nojvm -r "fprintf('Solving %s with %s...\n','$problem','$algorithm'); cd $user_dir;solveCUTEstProblem('$problem','$algorithm', '$user_dir', '$algorithm_perf_sub_dir'); fprintf(' done.\n'); exit;"
     
         done < "$problem_list"
 

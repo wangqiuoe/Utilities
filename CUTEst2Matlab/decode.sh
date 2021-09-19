@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Set name of list of all problems
-problem_list="list_all.txt"
+problem_list="list_decoded.txt"
 
 # Loop through problem list
 while IFS= read -r problem
@@ -23,7 +23,7 @@ do
   cd decoded/$problem;
 
   # Decode problem
-  cutest2matlab_osx $problem;
+  cutest2matlab $problem;
   
   # Move back to script directory
   cd ../..;

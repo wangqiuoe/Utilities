@@ -52,12 +52,17 @@ files      = cell(length(files_struct),1);
 algorithms = cell(length(files_struct),1);
 
 for i=1:length(files_struct)
-    files{i}        = sprintf('%s/%s', files_struct(i).folder, files_struct(i).name);
-    algorithms_name = split(files_struct(i).name, '.');
-    algorithms{i}   = cell2mat(algorithms_name(1));
+    files{i}        = sprintf('%s/%s/%s', user_dir,algorithm_perf_sub_dir, files_struct(i).name);
+    % avoid using '_' because of interpreter of latex when plot
+    algorithms_name = strsplit(files_struct(i).name, '.');
+    algorithms_name = cell2mat(algorithms_name(1));
+    for ii=1:length(algorithms_name)
+        if algorithms_name(ii) == '_'
+            algorithms_name(ii) = '-';
+        end
+    end
+    algorithms{i} = algorithms_name; 
 end
-% avoid using '_' because of interpreter of latex when plot
-algorithms = replace(algorithms, '_', '-');
 
 
 % File format per line

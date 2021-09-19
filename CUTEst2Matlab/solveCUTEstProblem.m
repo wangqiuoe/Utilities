@@ -3,17 +3,17 @@ function solveCUTEstProblem(problem,algorithm_config, user_dir, algorithm_perf_s
 % Move to problem directory
 cd(sprintf('%s/decoded/%s',user_dir,problem));
 % Add source files to path
-addpath('/usr/local/opt/cutest/libexec/src/matlab');
+addpath('/home/qiw420/linux-cutest/cutest/src/matlab');
 
 % ------- subject to change for your own solver ------------------
 % parse algorithm config
-fields = split(algorithm_config, ',');
+fields = strsplit(algorithm_config, '|');
 params_given = struct;
 for i=1:length(fields)
-    kv = split(fields{i}, '=');
+    kv = strsplit(fields{i}, '=');
     kv_key = kv{1};
     kv_value = kv{2};
-    if strcmp(kv_key,"solver")
+    if strcmp(kv_key,'solver')
         algorithm = kv_value;
         algorithm_full_name = algorithm;
     else
@@ -23,8 +23,8 @@ for i=1:length(fields)
 end
 
 % Add matlab solver to path
-addpath('/Users/wangqi/Desktop/nonlinear-optimization-course/MATLAB/algorithms/')
-addpath(sprintf('/Users/wangqi/Desktop/nonlinear-optimization-course/MATLAB/algorithms/%s', algorithm))
+addpath('/home/qiw420/nonlinearOptimization/MATLAB/algorithms/')
+addpath(sprintf('/home/qiw420/nonlinearOptimization/MATLAB/algorithms/%s', algorithm))
 
 % Create problem objects and parameters
 P = cutest_setup();
@@ -57,7 +57,7 @@ function setparams(fieldname, default_value)
 end
 
 % Trust Region parameters
-setparams("step_type", "NewtonCG"); %'NewtonCG';%'CauchyStep'; %'More-Sorensen';
+setparams('step_type', 'NewtonCG'); %'NewtonCG';%'CauchyStep'; %'More-Sorensen';
 % below for standard trust region parameters
 %setparams("eta_s", 1e-1); 
 %params.gamma_d = 0.5;
@@ -67,7 +67,6 @@ setparams("step_type", "NewtonCG"); %'NewtonCG';%'CauchyStep'; %'More-Sorensen';
 %params.gamma_ub = 1e+8;
 %params.gamma_lb = 1e-8;
 params.outfileID = fopen(sprintf('%s/%s/log_%s.out', user_dir, algorithm_perf_sub_dir,algorithm_full_name),'a');
-
 % Optimize
 try
     [x, info] = S(hands, x0, params);
