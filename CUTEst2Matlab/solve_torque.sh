@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # Set name of list of all problems to solve
 problem_list="list_unconstrained.txt"
@@ -83,9 +83,24 @@ then
         # Loop through list of problems
         while IFS= read -r problem
         do
-            echo log_${fullname}_${problem}.err
+            err_log=log/log_${fullname}_$problem.err 
+            filename=$err_log
+            if [ -f $filename ]
+            then
+                rm $filename
+            fi
+
+            out_log=log/log_${fullname}_$problem.out
+            filename=$out_log
+            if [ -f $filename ]
+            then
+                rm $filename
+            fi
+            
+            N_name=${fullname}_$problem
+
             # Run solveCUTEstProblem
-            qsub -q short -l mem=6gb -l vmem=6gb -e log_$fullname_$problem.err -o log_$fullname_$problem.out -v PROBLEM=$problem,ALGORITHM=${algorithm},USER_DIR=$user_dir,ALGORITHM_PERF_SUB_DIR=$algorithm_perf_sub_dir  run_one_problem.pbs
+            qsub -N $N_name -l nodes=1:ppn=2 -q batch -l mem=6gb -l vmem=6gb -e $err_log -o $out_log -v PROBLEM=$problem,ALGORITHM=${algorithm},USER_DIR=$user_dir,ALGORITHM_PERF_SUB_DIR=$algorithm_perf_sub_dir  run_one_problem.pbs
             #qsub -q short -l mem=4gb -l vmem=4gb -e "log.err" -o "log.out" /usr/local/matlab/R2014b/bin/matlab -nodisplay -nodesktop -nosplash -nojvm -r "fprintf('Solving %s with %s...\n','$problem','$algorithm'); cd $user_dir;solveCUTEstProblem('$problem','$algorithm', '$user_dir', '$algorithm_perf_sub_dir'); fprintf(' done.\n'); exit;"
     
         done < "$problem_list"
@@ -93,8 +108,14 @@ then
     done < "$algorithm_list"
 fi
 
-# Plot DolanMore Performance Profile of iteration
-#/usr/local/matlab/R2014b/bin/matlab -nodisplay -nodesktop -nosplash -r "fprintf('Plotting DolanMore Performance Profile...\n'); plotDolanMore('$user_dir', '$algorithm_perf_sub_dir', 2);fprintf(' done.\n'); exit;"
+if [ $optimize == 0 ]
+then
+    # merge the measure performance file with problem_list 
+    python merge_problem_measure.py $problem_list $user_dir $algorithm_perf_sub_dir 1
 
-# Plot DolanMore Performance Profile of running time
-#/usr/local/matlab/R2014b/bin/matlab -nodisplay -nodesktop -nosplash -r "fprintf('Plotting DolanMore Performance Profile...\n'); plotDolanMore('$user_dir', '$algorithm_perf_sub_dir', 6);fprintf(' done.\n'); exit;"
+    # Plot DolanMore Performance Profile of iteration
+    /usr/local/matlab/R2014b/bin/matlab -nodisplay -nodesktop -nosplash -r "fprintf('Plotting DolanMore Performance Profile...\n'); plotDolanMore('$user_dir', '$algorithm_perf_sub_dir', 2);fprintf(' done.\n'); exit;"
+
+    # Plot DolanMore Performance Profile of running time
+    /usr/local/matlab/R2014b/bin/matlab -nodisplay -nodesktop -nosplash -r "fprintf('Plotting DolanMore Performance Profile...\n'); plotDolanMore('$user_dir', '$algorithm_perf_sub_dir', 6);fprintf(' done.\n'); exit;"
+fi

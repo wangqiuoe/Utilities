@@ -75,7 +75,7 @@ column = column;
 options.log_scale = false;
 
 % Maximum ratio?
-options.tau_max = 10;
+options.tau_max = 100;
 
 % Add location of profiler to path
 addpath(sprintf('%s/PerformanceProfilers/src/Matlab/', user_dir));
