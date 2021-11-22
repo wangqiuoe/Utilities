@@ -36,10 +36,10 @@ hands.g_hand = @cutest_grad;
 hands.H_hand = @cutest_hess;
 hands.Hv_hand = @cutest_hprod;
 x0 = P.x;
-params.maxtime    = 40*60;   % max 10 minutes for each instance
+params.maxtime    = 60*60;   % max 10 minutes for each instance
 params.maxiter    = 1e+5;
 params.printlevel = 1;
-params.tol        = 1e-6;
+params.tol        = 1e-4;
 params.problem    = problem;
 
 function setparams(fieldname, default_value)
@@ -57,7 +57,8 @@ function setparams(fieldname, default_value)
 end
 
 % Trust Region parameters
-setparams('step_type', 'NewtonCG'); %'NewtonCG';%'CauchyStep'; %'More-Sorensen';
+%setparams('step_type', 'NewtonCG'); %'NewtonCG';%'CauchyStep'; %'More-Sorensen';
+setparams('algorithm', 'exact');
 % below for standard trust region parameters
 %setparams("eta_s", 1e-1); 
 %params.gamma_d = 0.5;
@@ -66,7 +67,7 @@ setparams('step_type', 'NewtonCG'); %'NewtonCG';%'CauchyStep'; %'More-Sorensen';
 %params.delta_max = 1e+8;
 %params.gamma_ub = 1e+8;
 %params.gamma_lb = 1e-8;
-params.outfileID = fopen(sprintf('%s/%s/log_%s.out', user_dir, algorithm_perf_sub_dir,algorithm_full_name),'a');
+params.outfileID = fopen(sprintf('%s/%s/log_%s_%s.out', user_dir, algorithm_perf_sub_dir,algorithm_full_name,problem),'w');
 % Optimize
 try
     [x, info] = S(hands, x0, params);
@@ -82,6 +83,8 @@ f         = info.f;
 iter      = info.iter;
 status    = info.status;
 g_norm    = info.norm_g;
+f_evals   = info.f_evals;
+sub_iter  = info.sub_iter;
 if status ~= 0
     iter = -1;
 end
@@ -89,7 +92,7 @@ time      = info.time/60;
 
 % Save solution
 fileID = fopen(sprintf('%s/%s/measure_%s.txt', user_dir, algorithm_perf_sub_dir,algorithm_full_name), 'a');
-fprintf(fileID, '%s\t%g\t%.8f\t%.8f\t%g\t%g\n', problem, iter, f, g_norm, status, time);
+fprintf(fileID, '%s\t%g\t%.8f\t%.8f\t%g\t%g\t%g\t%g\n', problem, iter, f, g_norm, status, time,f_evals,sub_iter);
 fclose(fileID);
 % ------------------------------------------------------------------
 

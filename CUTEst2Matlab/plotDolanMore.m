@@ -46,7 +46,7 @@ function plotDolanMore(user_dir, algorithm_perf_sub_dir, column)
 % - All input files must have the same number of lines
 
 
-full_path = sprintf('%s/%s/measure_*.txt',user_dir,algorithm_perf_sub_dir);
+full_path = sprintf('%s/%s/new_measure_*.txt',user_dir,algorithm_perf_sub_dir);
 files_struct = dir(full_path);
 files      = cell(length(files_struct),1);
 algorithms = cell(length(files_struct),1);
@@ -66,7 +66,7 @@ end
 
 
 % File format per line
-file_format = '%s\t%d\t%f\t%f\t%d\t%f';
+file_format = '%s\t%d\t%f\t%f\t%d\t%f\t%f\t%f';
 
 % Column to consider
 column = column;
@@ -85,6 +85,10 @@ if column == 2
     options.title='iteration';
 elseif column == 6
     options.title='runningtime';
+elseif column == 7
+    options.title='fevals';
+elseif column == 8
+    options.title='subiter';
 end
 
 % Call profiler

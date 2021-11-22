@@ -13,4 +13,4 @@ def filter(max_n_var = None, output_file = None):
 
 
 if __name__ == '__main__':
-    filter(max_n_var = 5000, output_file = 'list_prob_nomorethan5000.txt')        
+    filter(max_n_var = 20000, output_file = 'list_prob_nomorethan20000.txt')        
