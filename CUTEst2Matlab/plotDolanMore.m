@@ -66,7 +66,7 @@ end
 
 
 % File format per line
-file_format = '%s\t%d\t%f\t%f\t%d\t%f\t%f\t%f';
+file_format = '%s\t%d\t%f\t%f\t%d\t%f\t%f\t%f\t%f';
 
 % Column to consider
 column = column;
@@ -75,7 +75,7 @@ column = column;
 options.log_scale = false;
 
 % Maximum ratio?
-options.tau_max = 100;
+options.tau_max = 20;
 
 % Add location of profiler to path
 addpath(sprintf('%s/PerformanceProfilers/src/Matlab/', user_dir));
@@ -89,6 +89,8 @@ elseif column == 7
     options.title='fevals';
 elseif column == 8
     options.title='subiter';
+elseif column == 9
+    options.title='Hvevals';
 end
 
 % Call profiler

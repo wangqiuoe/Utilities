@@ -1,4 +1,9 @@
-function solveCUTEstProblem(problem,algorithm_config, user_dir, algorithm_perf_sub_dir)
+
+problem='SPARSINE';
+user_dir='.';
+algorithm_config='solver=itrace|algorithm=inexact|xi=100';
+%algorithm_config='solver=uncMIN_TR';
+
 
 % Move to problem directory
 cd(sprintf('%s/decoded/%s',user_dir,problem));
@@ -36,31 +41,19 @@ hands.g_hand = @cutest_grad;
 hands.H_hand = @cutest_hess;
 hands.Hv_hand = @cutest_hprod;
 x0 = P.x;
-params.maxtime    = 180*60;   % max 10 minutes for each instance
-params.maxiter    = 1e+5;
+g0 = norm(hands.g_hand(x0));
+params.maxtime    = 60*60;   % max 10 minutes for each instance
+params.maxiter    = 1e5;
 params.printlevel = 1;
-params.subprintlevel =0;
-params.tol        = 1e-6;
+params.subprintlevel = 0;
+params.tol        = 1e-4;
 params.problem    = problem;
 
-function setparams(fieldname, default_value)
-    % is param is given
-    if isfield(params_given, fieldname)
-        fieldvalue = params_given.(fieldname);
-        if isnumeric(default_value)
-            fieldvalue = str2num(fieldvalue);
-        end
-        params.(fieldname) = fieldvalue;
-    % otherwise, use default value
-    else
-        params.(fieldname) = default_value;
-    end
-end
-
+params.algorithm = 'inexact';
+params.xi        = 100;
 % Trust Region parameters
+%params.step_type = 'NewtonCG';
 %setparams('step_type', 'NewtonCG'); %'NewtonCG';%'CauchyStep'; %'More-Sorensen';
-setparams('algorithm', 'exact');
-setparams('xi', 1);
 % below for standard trust region parameters
 %setparams("eta_s", 1e-1); 
 %params.gamma_d = 0.5;
@@ -69,25 +62,18 @@ setparams('xi', 1);
 %params.delta_max = 1e+8;
 %params.gamma_ub = 1e+8;
 %params.gamma_lb = 1e-8;
-params.outfileID = fopen(sprintf('%s/%s/log_%s_%s.out', user_dir, algorithm_perf_sub_dir,algorithm_full_name,problem),'w');
+%params.outfileID = fopen(sprintf('%s/%s/log_%s_%s.out', user_dir, algorithm_perf_sub_dir,algorithm_full_name,problem),'w');
+params.outfileID = fopen('/home/qiw420/Utilities/CUTEst2Matlab/demo_debug.out', 'w');
 % Optimize
-%[x, info] = S(hands, x0, params);
 try
     [x, info] = S(hands, x0, params);
 catch ME
-    if strcmp(ME.identifier, 'MATLAB:nomem')
-        info.status=-3;
-    else
-        info.status=-1;
-    end
+    fprintf('%s',ME.message);
     info.f     = -1;
     info.iter  = -1;
+    info.status= -1;
     info.norm_g= -1;
     info.time  = -1;
-    info.f_evals = -1;
-    info.sub_iter=-1;
-    info.Hv_evals=-1;
-    info.outcome = ME.message;
 end
 f         = info.f;
 iter      = info.iter;
@@ -95,22 +81,11 @@ status    = info.status;
 g_norm    = info.norm_g;
 f_evals   = info.f_evals;
 sub_iter  = info.sub_iter;
-Hv_evals  = info.Hv_evals;
-outcome   = info.outcome;
 if status ~= 0
     iter = -1;
 end
 time      = info.time/60;
 
-% Save solution
-fileID = fopen(sprintf('%s/%s/measure_%s.txt', user_dir, algorithm_perf_sub_dir,algorithm_full_name), 'a');
-fprintf(fileID, '%s\t%g\t%g\t%.4f\t%.4f\t%.4f\t%g\t%g\t%g\t%s\n', problem, status, iter, f, g_norm, time,f_evals,sub_iter, Hv_evals, outcome);
-fclose(fileID);
-% ------------------------------------------------------------------
 
 % Delete
 cutest_terminate;
-
-% Move back
-cd(user_dir);
-end
