@@ -14,7 +14,7 @@ algorithm_perf_sub_dir="output"
 
 usage() { echo "$0 usage:" && grep " .)\ #" $0; exit 0; }
 [ $# -eq 0 ] && usage
-while getopts ":h:o:p:a:d:" arg; do
+while getopts ":h:o:p:a:d:s:" arg; do
   case $arg in
     o) # 1 if need optimization 0 otherwise.
       optimize=${OPTARG}
@@ -29,6 +29,9 @@ while getopts ":h:o:p:a:d:" arg; do
       ;;
     d) # algorithm_perf_sub_dir, default output
       algorithm_perf_sub_dir=${OPTARG}
+      ;;
+    s) # plot_suffix
+      suffix=${OPTARG}
       ;;
     h) # Display help.
       usage
@@ -100,7 +103,7 @@ then
             N_name=${fullname}_$problem
 
             # Run solveCUTEstProblem
-            qsub -N $N_name -l nodes=1:ppn=2 -q short -l mem=12gb -l vmem=12gb -e $err_log -o $out_log -v PROBLEM=$problem,ALGORITHM=${algorithm},USER_DIR=$user_dir,ALGORITHM_PERF_SUB_DIR=$algorithm_perf_sub_dir  run_one_problem.pbs
+            qsub -N $N_name -l nodes=1:ppn=2 -q short -l mem=8gb -l vmem=8gb -e $err_log -o $out_log -v PROBLEM=$problem,ALGORITHM=${algorithm},USER_DIR=$user_dir,ALGORITHM_PERF_SUB_DIR=$algorithm_perf_sub_dir  run_one_problem.pbs
             #qsub -q short -l mem=4gb -l vmem=4gb -e "log.err" -o "log.out" /usr/local/matlab/R2014b/bin/matlab -nodisplay -nodesktop -nosplash -nojvm -r "fprintf('Solving %s with %s...\n','$problem','$algorithm'); cd $user_dir;solveCUTEstProblem('$problem','$algorithm', '$user_dir', '$algorithm_perf_sub_dir'); fprintf(' done.\n'); exit;"
     
         done < "$problem_list"
@@ -111,17 +114,15 @@ fi
 if [ $optimize == 0 ]
 then
     # merge the measure performance file with problem_list 
-    python merge_problem_measure.py $problem_list $user_dir $algorithm_perf_sub_dir 0
+    python merge_problem_measure_new.py $algorithm_list $user_dir $algorithm_perf_sub_dir
 
     # Plot DolanMore Performance Profile of iteration
-    /usr/local/matlab/R2014b/bin/matlab -nodisplay -nodesktop -nosplash -r "fprintf('Plotting DolanMore Performance Profile...\n'); plotDolanMore('$user_dir', '$algorithm_perf_sub_dir', 2);fprintf(' done.\n'); exit;"
+    /Applications/MATLAB_R2021a.app/bin/matlab -nodisplay -nodesktop -nosplash -r "fprintf('Plotting DolanMore Performance Profile of iteration...\n'); plotDolanMore('$user_dir', '$algorithm_perf_sub_dir', 3, '$suffix');fprintf(' done.\n'); exit;"
 
     # Plot DolanMore Performance Profile of running time
-    /usr/local/matlab/R2014b/bin/matlab -nodisplay -nodesktop -nosplash -r "fprintf('Plotting DolanMore Performance Profile...\n'); plotDolanMore('$user_dir', '$algorithm_perf_sub_dir', 6);fprintf(' done.\n'); exit;"
+    /Applications/MATLAB_R2021a.app/bin/matlab -nodisplay -nodesktop -nosplash -r "fprintf('Plotting DolanMore Performance Profile of running time...\n'); plotDolanMore('$user_dir', '$algorithm_perf_sub_dir', 6, '$suffix');fprintf(' done.\n'); exit;"
     # Plot DolanMore Performance Profile of fevals
-    /usr/local/matlab/R2014b/bin/matlab -nodisplay -nodesktop -nosplash -r "fprintf('Plotting DolanMore Performance Profile...\n'); plotDolanMore('$user_dir', '$algorithm_perf_sub_dir', 7);fprintf(' done.\n'); exit;"
-    # Plot DolanMore Performance Profile of subiter
-    /usr/local/matlab/R2014b/bin/matlab -nodisplay -nodesktop -nosplash -r "fprintf('Plotting DolanMore Performance Profile...\n'); plotDolanMore('$user_dir', '$algorithm_perf_sub_dir', 8);fprintf(' done.\n'); exit;"
+    /Applications/MATLAB_R2021a.app/bin/matlab -nodisplay -nodesktop -nosplash -r "fprintf('Plotting DolanMore Performance Profile of fevals...\n'); plotDolanMore('$user_dir', '$algorithm_perf_sub_dir', 7, '$suffix');fprintf(' done.\n'); exit;"
     # Plot DolanMore Performance Profile of Hv_evals
-    /usr/local/matlab/R2014b/bin/matlab -nodisplay -nodesktop -nosplash -r "fprintf('Plotting DolanMore Performance Profile...\n'); plotDolanMore('$user_dir', '$algorithm_perf_sub_dir', 9);fprintf(' done.\n'); exit;"
+    /Applications/MATLAB_R2021a.app/bin/matlab -nodisplay -nodesktop -nosplash -r "fprintf('Plotting DolanMore Performance Profile of Hv_evals...\n'); plotDolanMore('$user_dir', '$algorithm_perf_sub_dir', 9, '$suffix');fprintf(' done.\n'); exit;"
 fi

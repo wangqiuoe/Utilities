@@ -1,4 +1,4 @@
-function plotDolanMore(user_dir, algorithm_perf_sub_dir, column)
+function plotDolanMore(user_dir, algorithm_perf_sub_dir, column, suffix)
 
 % plotDolanMore
 %
@@ -65,8 +65,10 @@ for i=1:length(files_struct)
 end
 
 
+
 % File format per line
-file_format = '%s\t%d\t%f\t%f\t%d\t%f\t%f\t%f\t%f';
+% prblem status iter f g_norm time f_evals sub_iter Hv_evals
+file_format = '%s\t%f\t%f\t%f\t%f\t%f\t%f\t%f\t%f';
 
 % Column to consider
 column = column;
@@ -75,13 +77,13 @@ column = column;
 options.log_scale = false;
 
 % Maximum ratio?
-options.tau_max = 20;
+options.tau_max = 15;
 
 % Add location of profiler to path
 addpath(sprintf('%s/PerformanceProfilers/src/Matlab/', user_dir));
 
 % title
-if column == 2
+if column == 3
     options.title='iteration';
 elseif column == 6
     options.title='runningtime';
@@ -92,6 +94,8 @@ elseif column == 8
 elseif column == 9
     options.title='Hvevals';
 end
+
+options.suffix = suffix;
 
 % Call profiler
 profilerDolanMore(files,algorithms,file_format,column,options, user_dir, algorithm_perf_sub_dir);
