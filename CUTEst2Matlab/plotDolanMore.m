@@ -1,4 +1,4 @@
-function plotDolanMore(user_dir, algorithm_perf_sub_dir, column, suffix)
+function plotDolanMore(user_dir, algorithm_perf_sub_dir, column, suffix, list_algorithm)
 
 % plotDolanMore
 %
@@ -46,24 +46,25 @@ function plotDolanMore(user_dir, algorithm_perf_sub_dir, column, suffix)
 % - All input files must have the same number of lines
 
 
-full_path = sprintf('%s/%s/new_measure_*.txt',user_dir,algorithm_perf_sub_dir);
-files_struct = dir(full_path);
-files      = cell(length(files_struct),1);
-algorithms = cell(length(files_struct),1);
+f_in = fopen(list_algorithm, 'r');
+%solver=itrace|algorithm=inexact|xi=1
+file_format = '%s %s %s';
+algorithm_config = textscan(f_in,file_format, 'delimiter','|');
+fclose(f_in);
+n_algorithms = length(algorithm_config{1});
+algorithms = cell(n_algorithms, 1);
+files = cell(n_algorithms,1);
 
-for i=1:length(files_struct)
-    files{i}        = sprintf('%s/%s/%s', user_dir,algorithm_perf_sub_dir, files_struct(i).name);
-    % avoid using '_' because of interpreter of latex when plot
-    algorithms_name = strsplit(files_struct(i).name, '.');
-    algorithms_name = cell2mat(algorithms_name(1));
-    for ii=1:length(algorithms_name)
-        if algorithms_name(ii) == '_'
-            algorithms_name(ii) = '-';
-        end
+n_params = length(algorithm_config);
+for j=1:n_algorithms
+    algorithm = cell(n_params,1);
+    for i=1:n_params
+        kv = strsplit(algorithm_config{i}{j}, '=');
+        algorithm{i} = kv{2};
     end
-    algorithms{i} = algorithms_name; 
+    algorithms{j} = strjoin(algorithm, '-');
+    files{j} = sprintf('%s/%s/new_measure_%s.txt',user_dir,algorithm_perf_sub_dir, algorithms{j} );
 end
-
 
 
 % File format per line
@@ -77,7 +78,7 @@ column = column;
 options.log_scale = false;
 
 % Maximum ratio?
-options.tau_max = 15;
+options.tau_max = 10;
 
 % Add location of profiler to path
 addpath(sprintf('%s/PerformanceProfilers/src/Matlab/', user_dir));
