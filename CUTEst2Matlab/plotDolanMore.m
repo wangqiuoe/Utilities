@@ -1,4 +1,4 @@
-function plotDolanMore(user_dir, algorithm_perf_sub_dir, column)
+function plotDolanMore(user_dir, algorithm_perf_sub_dir, column, suffix)
 
 % plotDolanMore
 %
@@ -46,22 +46,29 @@ function plotDolanMore(user_dir, algorithm_perf_sub_dir, column)
 % - All input files must have the same number of lines
 
 
-full_path = sprintf('%s/%s/measure_*.txt',user_dir,algorithm_perf_sub_dir);
+full_path = sprintf('%s/%s/new_measure_*.txt',user_dir,algorithm_perf_sub_dir);
 files_struct = dir(full_path);
 files      = cell(length(files_struct),1);
 algorithms = cell(length(files_struct),1);
 
 for i=1:length(files_struct)
-    files{i}        = sprintf('%s/%s', files_struct(i).folder, files_struct(i).name);
-    algorithms_name = split(files_struct(i).name, '.');
-    algorithms{i}   = cell2mat(algorithms_name(1));
+    files{i}        = sprintf('%s/%s/%s', user_dir,algorithm_perf_sub_dir, files_struct(i).name);
+    % avoid using '_' because of interpreter of latex when plot
+    algorithms_name = strsplit(files_struct(i).name, '.');
+    algorithms_name = cell2mat(algorithms_name(1));
+    for ii=1:length(algorithms_name)
+        if algorithms_name(ii) == '_'
+            algorithms_name(ii) = '-';
+        end
+    end
+    algorithms{i} = algorithms_name; 
 end
-% avoid using '_' because of interpreter of latex when plot
-algorithms = replace(algorithms, '_', '-');
+
 
 
 % File format per line
-file_format = '%s\t%d\t%f\t%f\t%d\t%f';
+% prblem status iter f g_norm time f_evals sub_iter Hv_evals
+file_format = '%s\t%f\t%f\t%f\t%f\t%f\t%f\t%f\t%f';
 
 % Column to consider
 column = column;
@@ -70,17 +77,25 @@ column = column;
 options.log_scale = false;
 
 % Maximum ratio?
-options.tau_max = 10;
+options.tau_max = 15;
 
 % Add location of profiler to path
 addpath(sprintf('%s/PerformanceProfilers/src/Matlab/', user_dir));
 
 % title
-if column == 2
+if column == 3
     options.title='iteration';
 elseif column == 6
     options.title='runningtime';
+elseif column == 7
+    options.title='fevals';
+elseif column == 8
+    options.title='subiter';
+elseif column == 9
+    options.title='Hvevals';
 end
+
+options.suffix = suffix;
 
 % Call profiler
 profilerDolanMore(files,algorithms,file_format,column,options, user_dir, algorithm_perf_sub_dir);
