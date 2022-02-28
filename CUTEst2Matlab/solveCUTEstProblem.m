@@ -36,11 +36,12 @@ hands.g_hand = @cutest_grad;
 hands.H_hand = @cutest_hess;
 hands.Hv_hand = @cutest_hprod;
 x0 = P.x;
-params.maxtime    = 180*60;   % max 10 minutes for each instance
-params.maxiter    = 1e+5;
+params.maxtime    = 90*60;   % max 10 minutes for each instance
+params.maxiter    = 1e+8;
 params.printlevel = 1;
 params.subprintlevel =0;
-params.tol        = 1e-6;
+params.subsubprintlevel =0;
+params.tol        = 1e-5;
 params.problem    = problem;
 
 function setparams(fieldname, default_value)
@@ -80,31 +81,28 @@ catch ME
     else
         info.status=-1;
     end
-    info.f     = -1;
-    info.iter  = -1;
-    info.norm_g= -1;
-    info.time  = -1;
-    info.f_evals = -1;
-    info.sub_iter=-1;
+    info.g_evals= -1;
+    info.time   = -1;
+    info.f_evals= -1;
     info.Hv_evals=-1;
     info.outcome = ME.message;
+    info.f       = -1;
+    info.norm_g  = -1;
 end
-f         = info.f;
-iter      = info.iter;
 status    = info.status;
-g_norm    = info.norm_g;
+g_evals   = info.g_evals;
 f_evals   = info.f_evals;
-sub_iter  = info.sub_iter;
 Hv_evals  = info.Hv_evals;
 outcome   = info.outcome;
-if status ~= 0
-    iter = -1;
-end
 time      = info.time/60;
+f         = info.f;
+norm_g    = info.norm_g;
+n         = length(x0);
 
 % Save solution
 fileID = fopen(sprintf('%s/%s/measure_%s.txt', user_dir, algorithm_perf_sub_dir,algorithm_full_name), 'a');
-fprintf(fileID, '%s\t%g\t%g\t%.4f\t%.4f\t%.4f\t%g\t%g\t%g\t%s\n', problem, status, iter, f, g_norm, time,f_evals,sub_iter, Hv_evals, outcome);
+%fprintf(fileID, '%s\t%g\t%g\t%.4f\t%.4f\t%.4f\t%g\t%g\t%g\t%s\n', problem, status, iter, f, g_norm, time,f_evals, Hv_evals, outcome);
+fprintf(fileID, '%s\t%g\t%g\t%.5f\t%g\t%g\t%g\t%.5f\t%.5f\t%s\n', problem, n, status, time,g_evals,f_evals, Hv_evals, f, norm_g, outcome);
 fclose(fileID);
 % ------------------------------------------------------------------
 

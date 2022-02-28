@@ -103,7 +103,8 @@ then
             N_name=${fullname}_$problem
 
             # Run solveCUTEstProblem
-            qsub -N $N_name -l nodes=1:ppn=2 -q short -l mem=8gb -l vmem=8gb -e $err_log -o $out_log -v PROBLEM=$problem,ALGORITHM=${algorithm},USER_DIR=$user_dir,ALGORITHM_PERF_SUB_DIR=$algorithm_perf_sub_dir  run_one_problem.pbs
+            qsub -N $N_name -l nodes=polyp2:ppn=2 -q short -l mem=8gb -l vmem=8gb -e $err_log -o $out_log -v PROBLEM=$problem,ALGORITHM=${algorithm},USER_DIR=$user_dir,ALGORITHM_PERF_SUB_DIR=$algorithm_perf_sub_dir  run_one_problem.pbs
+            #qsub -N $N_name -l nodes=1:ppn=2 -q short -l mem=8gb -l vmem=8gb -e $err_log -o $out_log -v PROBLEM=$problem,ALGORITHM=${algorithm},USER_DIR=$user_dir,ALGORITHM_PERF_SUB_DIR=$algorithm_perf_sub_dir  run_one_problem.pbs
             #qsub -q short -l mem=4gb -l vmem=4gb -e "log.err" -o "log.out" /usr/local/matlab/R2014b/bin/matlab -nodisplay -nodesktop -nosplash -nojvm -r "fprintf('Solving %s with %s...\n','$problem','$algorithm'); cd $user_dir;solveCUTEstProblem('$problem','$algorithm', '$user_dir', '$algorithm_perf_sub_dir'); fprintf(' done.\n'); exit;"
     
         done < "$problem_list"
@@ -117,12 +118,12 @@ then
     python merge_problem_measure_new.py $algorithm_list $user_dir $algorithm_perf_sub_dir
 
     # Plot DolanMore Performance Profile of iteration
-    /Applications/MATLAB_R2021a.app/bin/matlab -nodisplay -nodesktop -nosplash -r "fprintf('Plotting DolanMore Performance Profile of iteration...\n'); plotDolanMore('$user_dir', '$algorithm_perf_sub_dir', 3, '$suffix', '$algorithm_list');fprintf(' done.\n'); exit;"
+    /usr/local/matlab/R2014b/bin/matlab -nodisplay -nodesktop -nosplash -r "fprintf('Plotting DolanMore Performance Profile of iteration...\n'); plotDolanMore('$user_dir', '$algorithm_perf_sub_dir', 3, '$suffix', '$algorithm_list');fprintf(' done.\n'); exit;"
 
-    # Plot DolanMore Performance Profile of running time
-    /Applications/MATLAB_R2021a.app/bin/matlab -nodisplay -nodesktop -nosplash -r "fprintf('Plotting DolanMore Performance Profile of running time...\n'); plotDolanMore('$user_dir', '$algorithm_perf_sub_dir', 6, '$suffix', '$algorithm_list');fprintf(' done.\n'); exit;"
-    # Plot DolanMore Performance Profile of fevals
-    /Applications/MATLAB_R2021a.app/bin/matlab -nodisplay -nodesktop -nosplash -r "fprintf('Plotting DolanMore Performance Profile of fevals...\n'); plotDolanMore('$user_dir', '$algorithm_perf_sub_dir', 7, '$suffix', '$algorithm_list');fprintf(' done.\n'); exit;"
-    # Plot DolanMore Performance Profile of Hv_evals
-    /Applications/MATLAB_R2021a.app/bin/matlab -nodisplay -nodesktop -nosplash -r "fprintf('Plotting DolanMore Performance Profile of Hv_evals...\n'); plotDolanMore('$user_dir', '$algorithm_perf_sub_dir', 9, '$suffix', '$algorithm_list');fprintf(' done.\n'); exit;"
+    ## Plot DolanMore Performance Profile of running time
+    #/usr/local/matlab/R2014b/bin/matlab -nodisplay -nodesktop -nosplash -r "fprintf('Plotting DolanMore Performance Profile of running time...\n'); plotDolanMore('$user_dir', '$algorithm_perf_sub_dir', 6, '$suffix', '$algorithm_list');fprintf(' done.\n'); exit;"
+    ## Plot DolanMore Performance Profile of fevals
+    #/usr/local/matlab/R2014b/bin/matlab -nodisplay -nodesktop -nosplash -r "fprintf('Plotting DolanMore Performance Profile of fevals...\n'); plotDolanMore('$user_dir', '$algorithm_perf_sub_dir', 7, '$suffix', '$algorithm_list');fprintf(' done.\n'); exit;"
+    ## Plot DolanMore Performance Profile of Hv_evals
+    #/usr/local/matlab/R2014b/bin/matlab -nodisplay -nodesktop -nosplash -r "fprintf('Plotting DolanMore Performance Profile of Hv_evals...\n'); plotDolanMore('$user_dir', '$algorithm_perf_sub_dir', 9, '$suffix', '$algorithm_list');fprintf(' done.\n'); exit;"
 fi

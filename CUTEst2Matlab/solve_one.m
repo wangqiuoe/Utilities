@@ -1,7 +1,7 @@
 
-problem='SPARSINE';
+problem='STREG';
 user_dir='.';
-algorithm_config='solver=itrace|algorithm=inexact|xi=100';
+algorithm_config='solver=itrace2|algorithm=inexact|xi=1';
 %algorithm_config='solver=uncMIN_TR';
 
 
@@ -46,11 +46,12 @@ params.maxtime    = 60*60;   % max 10 minutes for each instance
 params.maxiter    = 1e5;
 params.printlevel = 1;
 params.subprintlevel = 0;
-params.tol        = 1e-4;
+params.subsubprintlevel = 0;
+params.tol        = 1e-5;
 params.problem    = problem;
 
 params.algorithm = 'inexact';
-params.xi        = 100;
+params.xi        = 1;
 % Trust Region parameters
 %params.step_type = 'NewtonCG';
 %setparams('step_type', 'NewtonCG'); %'NewtonCG';%'CauchyStep'; %'More-Sorensen';
@@ -65,6 +66,7 @@ params.xi        = 100;
 %params.outfileID = fopen(sprintf('%s/%s/log_%s_%s.out', user_dir, algorithm_perf_sub_dir,algorithm_full_name,problem),'w');
 params.outfileID = fopen('/home/qiw420/Utilities/CUTEst2Matlab/demo_debug.out', 'w');
 % Optimize
+%profile on -historysize 500000000
 try
     [x, info] = S(hands, x0, params);
 catch ME
@@ -75,6 +77,7 @@ catch ME
     info.norm_g= -1;
     info.time  = -1;
 end
+%p = profile('info');
 f         = info.f;
 iter      = info.iter;
 status    = info.status;
