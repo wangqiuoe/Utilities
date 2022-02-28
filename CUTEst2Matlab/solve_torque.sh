@@ -117,13 +117,13 @@ then
     # merge the measure performance file with problem_list 
     python merge_problem_measure_new.py $algorithm_list $user_dir $algorithm_perf_sub_dir
 
-    # Plot DolanMore Performance Profile of iteration
-    /usr/local/matlab/R2014b/bin/matlab -nodisplay -nodesktop -nosplash -r "fprintf('Plotting DolanMore Performance Profile of iteration...\n'); plotDolanMore('$user_dir', '$algorithm_perf_sub_dir', 3, '$suffix', '$algorithm_list');fprintf(' done.\n'); exit;"
+    # Plot DolanMore Performance Profile of running time
+    #/Applications/MATLAB_R2021a.app/bin/matlab -nodisplay -nodesktop -nosplash -r "fprintf('Plotting DolanMore Performance Profile of running time...\n'); plotDolanMore('$user_dir', '$algorithm_perf_sub_dir', 4, '$suffix', '$algorithm_list');fprintf(' done.\n'); exit;"
 
-    ## Plot DolanMore Performance Profile of running time
-    #/usr/local/matlab/R2014b/bin/matlab -nodisplay -nodesktop -nosplash -r "fprintf('Plotting DolanMore Performance Profile of running time...\n'); plotDolanMore('$user_dir', '$algorithm_perf_sub_dir', 6, '$suffix', '$algorithm_list');fprintf(' done.\n'); exit;"
-    ## Plot DolanMore Performance Profile of fevals
-    #/usr/local/matlab/R2014b/bin/matlab -nodisplay -nodesktop -nosplash -r "fprintf('Plotting DolanMore Performance Profile of fevals...\n'); plotDolanMore('$user_dir', '$algorithm_perf_sub_dir', 7, '$suffix', '$algorithm_list');fprintf(' done.\n'); exit;"
-    ## Plot DolanMore Performance Profile of Hv_evals
-    #/usr/local/matlab/R2014b/bin/matlab -nodisplay -nodesktop -nosplash -r "fprintf('Plotting DolanMore Performance Profile of Hv_evals...\n'); plotDolanMore('$user_dir', '$algorithm_perf_sub_dir', 9, '$suffix', '$algorithm_list');fprintf(' done.\n'); exit;"
+    # Plot DolanMore Performance Profile of gradient evaluations
+    /Applications/MATLAB_R2021a.app/bin/matlab -nodisplay -nodesktop -nosplash -r "fprintf('Plotting DolanMore Performance Profile of gradient evaluations...\n'); plotDolanMore('$user_dir', '$algorithm_perf_sub_dir', 5, '$suffix', '$algorithm_list');fprintf(' done.\n'); exit;"
+    # Plot DolanMore Performance Profile of function evaluations
+    /Applications/MATLAB_R2021a.app/bin/matlab -nodisplay -nodesktop -nosplash -r "fprintf('Plotting DolanMore Performance Profile of function evaluations...\n'); plotDolanMore('$user_dir', '$algorithm_perf_sub_dir', 6, '$suffix', '$algorithm_list');fprintf(' done.\n'); exit;"
+    # Plot DolanMore Performance Profile of Hessian vector evaluations
+    /Applications/MATLAB_R2021a.app/bin/matlab -nodisplay -nodesktop -nosplash -r "fprintf('Plotting DolanMore Performance Profile of Hessian vector evaluations...\n'); plotDolanMore('$user_dir', '$algorithm_perf_sub_dir', 7, '$suffix', '$algorithm_list');fprintf(' done.\n'); exit;"
 fi

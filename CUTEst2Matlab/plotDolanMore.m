@@ -46,30 +46,49 @@ function plotDolanMore(user_dir, algorithm_perf_sub_dir, column, suffix, list_al
 % - All input files must have the same number of lines
 
 
+algorithms=cell(0);
+colors=cell(0);   % specify the color
+files = cell(0);
 f_in = fopen(list_algorithm, 'r');
-%solver=itrace|algorithm=inexact|xi=1
-file_format = '%s %s %s';
-algorithm_config = textscan(f_in,file_format, 'delimiter','|');
-fclose(f_in);
-n_algorithms = length(algorithm_config{1});
-algorithms = cell(n_algorithms, 1);
-files = cell(n_algorithms,1);
-
-n_params = length(algorithm_config);
-for j=1:n_algorithms
+j=1;
+while ~feof(f_in)
+    tline = fgetl(f_in);
+    algorithm_config = strsplit(tline, '|');
+    n_params = length(algorithm_config);
     algorithm = cell(n_params,1);
     for i=1:n_params
-        kv = strsplit(algorithm_config{i}{j}, '=');
-        algorithm{i} = kv{2};
+        kv = strsplit(algorithm_config{i}, '=');
+        if i==1
+            algorithm{i} = upper(kv{2});    % upper the solver's name
+        else
+            algorithm{i} = kv{2};
+        end
     end
     algorithms{j} = strjoin(algorithm, '-');
+    if strcmp(algorithms{j}, 'TRACE-inexact-0.01') 
+        color = '#7E2F8E';
+    elseif strcmp(algorithms{j}, 'TRACE-inexact-1') 
+        color = '#EDB120';
+    elseif strcmp(algorithms{j}, 'TRACE-inexact-100') 
+        color = '#D95319';
+    elseif strcmp(algorithms{j}, 'TRACE-exact') 
+        color = '#0072BD';
+    elseif strcmp(algorithms{j}, 'ARC-1') 
+        color = '#77AC30';
+    elseif strcmp(algorithms{j}, 'TRNTCG') 
+        color = '#A2142F';
+    end
+    colors{j} = color;        
     files{j} = sprintf('%s/%s/new_measure_%s.txt',user_dir,algorithm_perf_sub_dir, algorithms{j} );
+    j = j+1;
 end
+fclose(f_in);
 
 
 % File format per line
 % prblem status iter f g_norm time f_evals sub_iter Hv_evals
-file_format = '%s\t%f\t%f\t%f\t%f\t%f\t%f\t%f\t%f';
+%file_format = '%s\t%f\t%f\t%f\t%f\t%f\t%f\t%f\t%f';
+file_format='%s\t%f\t%f\t%f\t%f\t%f\t%f\t%f\t%f';
 
 % Column to consider
 column = column;
@@ -78,25 +97,24 @@ column = column;
 options.log_scale = false;
 
 % Maximum ratio?
-options.tau_max = 10;
+options.tau_max = 20;
 
 % Add location of profiler to path
 addpath(sprintf('%s/PerformanceProfilers/src/Matlab/', user_dir));
 
 % title
-if column == 3
-    options.title='iteration';
-elseif column == 6
+if column == 4
     options.title='runningtime';
+elseif column == 5
+    options.title='gradient-evals';
+elseif column == 6
+    options.title='function-evals';
 elseif column == 7
-    options.title='fevals';
-elseif column == 8
-    options.title='subiter';
-elseif column == 9
-    options.title='Hvevals';
+    options.title='Hv-evals';
 end
 
 options.suffix = suffix;
-
+options.style='slides';     % for slides
+options.colors=colors;      % for specify colors
 % Call profiler
 profilerDolanMore(files,algorithms,file_format,column,options, user_dir, algorithm_perf_sub_dir);
