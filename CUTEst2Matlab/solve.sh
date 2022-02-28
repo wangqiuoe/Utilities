@@ -7,7 +7,7 @@ problem_list="list_unconstrained.txt"
 algorithm_list="list_algorithms.txt"
 
 # set the user directory (use current directory)
-user_dir=$(PWD)  #"/Users/wangqi/Desktop/cutest_test/Utilities/CUTEst2Matlab"
+user_dir=$PWD  #"/Users/wangqi/Desktop/cutest_test/Utilities/CUTEst2Matlab"
 
 # set the algorithm performance sub directory
 algorithm_perf_sub_dir="output"
@@ -84,7 +84,7 @@ then
         while IFS= read -r problem
         do
             # Run solveCUTEstProblem
-            /Applications/MATLAB_R2021a.app/bin/matlab -nodisplay -nodesktop -nosplash -nojvm -r "fprintf('Solving %s with %s...\n','$problem','$algorithm'); solveCUTEstProblem('$problem','$algorithm', '$user_dir', '$algorithm_perf_sub_dir'); fprintf(' done.\n'); exit;"
+            /usr/local/matlab/R2014b/bin/matlab -nodisplay -nodesktop -nosplash -nojvm -r "fprintf('Solving %s with %s...\n','$problem','$algorithm'); solveCUTEstProblem('$problem','$algorithm', '$user_dir', '$algorithm_perf_sub_dir'); fprintf(' done.\n'); exit;"
     
         done < "$problem_list"
 
@@ -92,7 +92,7 @@ then
 fi
 
 # Plot DolanMore Performance Profile of iteration
-/Applications/MATLAB_R2021a.app/bin/matlab -nodisplay -nodesktop -nosplash -r "fprintf('Plotting DolanMore Performance Profile...\n'); plotDolanMore('$user_dir', '$algorithm_perf_sub_dir', 2);fprintf(' done.\n'); exit;"
+#/usr/local/matlab/R2014b/bin/matlab -nodisplay -nodesktop -nosplash -r "fprintf('Plotting DolanMore Performance Profile...\n'); plotDolanMore('$user_dir', '$algorithm_perf_sub_dir', 2);fprintf(' done.\n'); exit;"
 
 # Plot DolanMore Performance Profile of running time
-/Applications/MATLAB_R2021a.app/bin/matlab -nodisplay -nodesktop -nosplash -r "fprintf('Plotting DolanMore Performance Profile...\n'); plotDolanMore('$user_dir', '$algorithm_perf_sub_dir', 6);fprintf(' done.\n'); exit;"
+#/usr/local/matlab/R2014b/bin/matlab -nodisplay -nodesktop -nosplash -r "fprintf('Plotting DolanMore Performance Profile...\n'); plotDolanMore('$user_dir', '$algorithm_perf_sub_dir', 6);fprintf(' done.\n'); exit;"

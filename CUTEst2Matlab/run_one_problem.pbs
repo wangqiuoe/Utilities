@@ -1,0 +1,1 @@
+/usr/local/matlab/R2014b/bin/matlab -nodisplay -nodesktop -nosplash -nojvm -r "fprintf('Solving %s with %s...\n','${PROBLEM}','${ALGORITHM}'); cd ${USER_DIR};solveCUTEstProblem('${PROBLEM}','${ALGORITHM}', '${USER_DIR}', '${ALGORITHM_PERF_SUB_DIR}'); fprintf(' done.\n'); exit;"
