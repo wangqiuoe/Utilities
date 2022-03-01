@@ -48,9 +48,9 @@ hands.l = x0 - rand(size(x0));  % rand: uniform 0-1
 hands.u = x0 + rand(size(x0));
 
 params.maxtime    = 90*60;   % max 10 minutes for each instance
-params.maxiter    = 1;
+params.maxiter    = 100;
 params.printlevel = 1;
-params.tol        = 1e-5;
+params.tol        = 1e-4;
 params.problem    = problem;
 
 function setparams(fieldname, default_value)
