@@ -7,7 +7,7 @@ if startsWith(pwd,'/Users/wangqi/')
 else
     % remote conf
     cutest_path='/home/qiw420/linux-cutest/cutest/src/matlab';
-    solver_path='/home/qiw420/optimizer/MATLAB/src/'
+    solver_path='/home/qiw420/optimizer/MATLAB/src/';
 end
 
 % Move to problem directory
