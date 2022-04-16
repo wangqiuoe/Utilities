@@ -39,38 +39,24 @@ x0 = P.x;
 params.maxtime    = 90*60;   % max 10 minutes for each instance
 params.maxiter    = 1e+8;
 params.printlevel = 1;
-params.subprintlevel =0;
-params.subsubprintlevel =0;
+params.subprintlevel =1;
+params.subsubprintlevel =1;
 params.tol        = 1e-5;
 params.problem    = problem;
 
-function setparams(fieldname, default_value)
-    % is param is given
-    if isfield(params_given, fieldname)
-        fieldvalue = params_given.(fieldname);
-        if isnumeric(default_value)
-            fieldvalue = str2num(fieldvalue);
-        end
-        params.(fieldname) = fieldvalue;
-    % otherwise, use default value
-    else
-        params.(fieldname) = default_value;
+% set params
+fns = fieldnames(params_given);
+for i=1:length(fns)
+    fn = fns{i};
+    fv = params_given.(fn);
+    if ~isnan(str2double(fv))
+        fv = str2num(fv);
     end
-end
+    params.(fn) = fv;
+end 
 
-% Trust Region parameters
-%setparams('step_type', 'NewtonCG'); %'NewtonCG';%'CauchyStep'; %'More-Sorensen';
-setparams('algorithm', 'exact');
-setparams('xi', 1);
-% below for standard trust region parameters
-%setparams("eta_s", 1e-1); 
-%params.gamma_d = 0.5;
-%params.gamma_i = 2;
-%params.eta_vs  = 0.9; %params.eta_s;
-%params.delta_max = 1e+8;
-%params.gamma_ub = 1e+8;
-%params.gamma_lb = 1e-8;
-params.outfileID = fopen(sprintf('%s/%s/log_%s_%s.out', user_dir, algorithm_perf_sub_dir,algorithm_full_name,problem),'w');
+%params.outfileID = fopen(sprintf('%s/%s/log_%s_%s.out', user_dir, algorithm_perf_sub_dir,algorithm_full_name,problem),'w');
+
 % Optimize
 %[x, info] = S(hands, x0, params);
 try
@@ -101,7 +87,6 @@ n         = length(x0);
 
 % Save solution
 fileID = fopen(sprintf('%s/%s/measure_%s.txt', user_dir, algorithm_perf_sub_dir,algorithm_full_name), 'a');
-%fprintf(fileID, '%s\t%g\t%g\t%.4f\t%.4f\t%.4f\t%g\t%g\t%g\t%s\n', problem, status, iter, f, g_norm, time,f_evals, Hv_evals, outcome);
 fprintf(fileID, '%s\t%g\t%g\t%.5f\t%g\t%g\t%g\t%.5f\t%.5f\t%s\n', problem, n, status, time,g_evals,f_evals, Hv_evals, f, norm_g, outcome);
 fclose(fileID);
 % ------------------------------------------------------------------
