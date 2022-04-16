@@ -49,8 +49,8 @@ x0 = P.x;
 params.maxtime    = 90*60;   % max 10 minutes for each instance
 params.maxiter    = 1e+8;
 params.printlevel = 1;
-params.subprintlevel =1;
-params.subsubprintlevel =1;
+params.subprintlevel =0;
+params.subsubprintlevel =0;
 params.tol        = 1e-5;
 params.problem    = problem;
 
@@ -65,7 +65,7 @@ for i=1:length(fns)
     params.(fn) = fv;
 end 
 
-%params.outfileID = fopen(sprintf('%s/%s/log_%s_%s.out', user_dir, algorithm_perf_sub_dir,algorithm_full_name,problem),'w');
+params.outfileID = fopen(sprintf('%s/%s/log_%s_%s.out', user_dir, algorithm_perf_sub_dir,algorithm_full_name,problem),'w');
 
 % Optimize
 %[x, info] = S(hands, x0, params);
