@@ -1,9 +1,19 @@
 function solveCUTEstProblem(problem,algorithm_config, user_dir, algorithm_perf_sub_dir)
 
+if startsWith(pwd,'/Users/wangqi/')
+    % local conf
+    cutest_path='/usr/local/opt/cutest/libexec/src/matlab';
+    solver_path='/Users/wangqi/Desktop/nonlinear-optimization-course/MATLAB/algorithms/';
+else
+    % remote conf
+    cutest_path='/home/qiw420/linux-cutest/cutest/src/matlab';
+    solver_path='/home/qiw420/nonlinearOptimization/MATLAB/algorithms/';
+end
+
 % Move to problem directory
 cd(sprintf('%s/decoded/%s',user_dir,problem));
 % Add source files to path
-addpath('/home/qiw420/linux-cutest/cutest/src/matlab');
+addpath(cutest_path);
 
 % ------- subject to change for your own solver ------------------
 % parse algorithm config
@@ -23,8 +33,8 @@ for i=1:length(fields)
 end
 
 % Add matlab solver to path
-addpath('/home/qiw420/nonlinearOptimization/MATLAB/algorithms/')
-addpath(sprintf('/home/qiw420/nonlinearOptimization/MATLAB/algorithms/%s', algorithm))
+addpath(solver_path)
+addpath(sprintf('%s/%s', solver_path,algorithm))
 
 % Create problem objects and parameters
 P = cutest_setup();
