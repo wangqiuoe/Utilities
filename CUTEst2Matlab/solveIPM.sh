@@ -1,10 +1,10 @@
 #!/bin/bash
 
 # Set name of list of all problems to solve
-problem_list="list_unconstrained.txt"
+problem_list="list_debug_problem.txt"
 
 # Set name of list of all algorithms to run
-algorithm_list="list_algorithms.txt"
+algorithm_list="list_debug_algorithm.txt"
 
 # set the user directory (use current directory)
 user_dir=$PWD  #"/Users/wangqi/Desktop/cutest_test/Utilities/CUTEst2Matlab"
@@ -86,14 +86,14 @@ then
         # Loop through list of problems
         while IFS= read -r problem
         do
-            err_log=log/log_${fullname}_$problem.err 
+            err_log=log_ipm/log_${fullname}_$problem.err 
             filename=$err_log
             if [ -f $filename ]
             then
                 rm $filename
             fi
 
-            out_log=log/log_${fullname}_$problem.out
+            out_log=log_ipm/log_${fullname}_$problem.out
             filename=$out_log
             if [ -f $filename ]
             then
@@ -103,7 +103,8 @@ then
             N_name=${fullname}_$problem
 
             # Run solveCUTEstProblemNew
-            /Applications/MATLAB_R2021a.app/bin/matlab -nodisplay -nodesktop -nosplash -nojvm -r "fprintf('Solving %s with %s...\n','${problem}','${algorithm}'); cd ${user_dir};solveCUTEstProblemNew('${problem}','${algorithm}', '${user_dir}', '${algorithm_perf_sub_dir}'); fprintf(' done.\n'); exit;"
+            #/usr/local/matlab/R2018a/bin/matlab -nodisplay -nodesktop -nosplash -nojvm -r "fprintf('Solving %s with %s...\n','${problem}','${algorithm}'); cd ${user_dir};solveCUTEstProblemIPM('${problem}','${algorithm}', '${user_dir}', '${algorithm_perf_sub_dir}'); fprintf(' done.\n'); exit;"
+            qsub -N $N_name -l nodes=1:ppn=2 -q short -l pmem=8gb -l vmem=8gb -e $err_log -o $out_log -v PROBLEM=$problem,ALGORITHM=${algorithm},USER_DIR=$user_dir,ALGORITHM_PERF_SUB_DIR=$algorithm_perf_sub_dir  run_one_problem_ipm.pbs
 
         done < "$problem_list"
 
