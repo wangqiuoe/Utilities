@@ -1,0 +1,4 @@
+export MLM_LICENSE_FILE=27000@lm-matlab.cc.lehigh.edu
+env |grep -i license
+echo $HOSTNAME
+/usr/local/matlab/R2018a/bin/matlab -nodisplay -nodesktop -nosplash -nojvm -r "fprintf('Solving %s with %s...\n','${PROBLEM}','${ALGORITHM}'); cd ${USER_DIR};solveCUTEstProblemIPM('${PROBLEM}','${ALGORITHM}', '${USER_DIR}', '${ALGORITHM_PERF_SUB_DIR}'); fprintf(' done.\n'); exit;"

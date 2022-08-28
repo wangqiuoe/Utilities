@@ -51,7 +51,7 @@ hands.u =  P.bu; %x0 + 10;% for debug P.bu;
 
 %% general parameters
 params.maxtime    = 60*60;
-params.maxiter    = 1e4;
+params.maxiter    = 100;
 params.printlevel = 1;
 params.tol        = 1e-4;
 params.problem    = problem;
@@ -79,7 +79,6 @@ function [f_val,g_val] = cutest_func(x)
     g_val = cutest_grad(x);
 end
 try
-
     %% Move x0 if it is not interior
     for idx=1:length(x0)
         % Revise u(i) and l(i) if they are equal 
@@ -119,25 +118,30 @@ try
     %fprintf('unconstrained norm_x: %.4f, f: %.4f', norm(x_unc), f_unc)
     
     %% for stochastic IPM
+
+    % check if deterministic solution exists
+    ipm_solution_filename=sprintf('%s/IPMSolution/%s.mat', user_dir, problem);
+    assert (isfile(ipm_solution_filename), 'no deterministic solution exists')
+    
+    % load deterministic sol
+    DetSol=load(ipm_solution_filename);
+    x_det=DetSol.x;
+    L_det=DetSol.L;
+
+    % generate yi
+    M = 100;
+    y_std = 0.1;
+    rng(28);
+    y = x_det + y_std*randn(length(x_det), M);
+    fprintf('y(1)=%11.6e', y(1));
     if startsWith(algorithm, 'StochasticIPM')
-
-        % check if deterministic solution exists
-        ipm_solution_filename=sprintf('%s/IPMSolution/%s.mat', user_dir, problem);
-        assert (isfile(ipm_solution_filename), 'no deterministic solution exists')
-        
-        % load deterministic sol
-        load(ipm_solution_filename);
-        x_det=x;
-        L_det=L;
-
-        % generate yi
-        M = 100;
-        y_std = 0.1;
-        y = x_det + y_std*randn(length(x_det), M);
         hands.y = y;
         params.L = L_det;
         params.maxiter=1000; % max stochastic gradient evaluations
         params.tol = 1e-4;
+    elseif startsWith(algorithm, 'IPM')
+        hands.f_hand = @(x) cutest_obj(x) + 1/M * sum( sum((x - y).^2,1) );
+        hands.g_hand = @(x) cutest_grad(x) + 2/M * sum(x - y, 2);
     end
     S = eval(sprintf('%s(x0,hands,params)', algorithm));
     
@@ -177,12 +181,12 @@ fileID = fopen(measure_filename, 'a');
 fprintf(fileID, '%s\t%g\t%g\t%g\t%.5f\t%.5f\t%s\n', problem, n, status,iter, time,f, outcome);
 fclose(fileID);
 
-%% Save x and info.L if startsWith(algorithm, 'IPM')
-if strcmp(algorithm, 'IPM') && info.status==1
-    L = info.L;
-    solution_filename=sprintf('%s/IPMSolution/%s.mat', user_dir, problem);
-    save(solution_filename,'x','L')
-end
+%%% Save x and info.L if startsWith(algorithm, 'IPM')
+%if strcmp(algorithm, 'IPM') && info.status==1
+%    L = info.L;
+%    solution_filename=sprintf('%s/IPMSolution/%s.mat', user_dir, problem);
+%    save(solution_filename,'x','L')
+%end
 % ------------------------------------------------------------------
 
 %% Delete
