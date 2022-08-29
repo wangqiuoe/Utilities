@@ -1,4 +1,4 @@
-function info = solveCUTEstProblemNew(problem,algorithm_config, user_dir, algorithm_perf_sub_dir)
+function info = solveCUTEstProblemIPM(problem,algorithm_config, user_dir, algorithm_perf_sub_dir)
 
 if startsWith(pwd,'/Users/wangqi/')
     % local conf
@@ -11,7 +11,7 @@ else
 end
 
 % Move to problem directory
-cd(sprintf('%s/decoded_dir/%s',user_dir,problem));
+cd(sprintf('%s/decoded_bound/%s',user_dir,problem));
 % Add source files to path
 addpath(cutest_path);
 
@@ -58,11 +58,15 @@ for idx=1:length(x0)
         hands.u(idx) = x0(idx) + 1;
     end
 
+    if (hands.u(idx) == 1e20) && (hands.l(idx) == -1e20)
+        hands.u(idx) = x0(idx) + 0.1;
+        hands.l(idx) = x0(idx) - 0.1;
+    end
+    
     % Revise x0(i) if x0(i) is not interior between l(i) and u(i)
     if (x0(idx) >= hands.u(idx)) || (x0(idx) <= hands.l(idx))
         if (hands.u(idx) == 1e20) && (hands.l(idx) == -1e20)
             x0(idx) = 0;
-            problem = sprintf('%s_unb', problem);
         elseif (hands.u(idx) == 1e20)
             x0(idx) = hands.l(idx) + 1;
         elseif (hands.l(idx) == -1e20)
@@ -80,21 +84,6 @@ params.printlevel = 1;
 params.tol        = 1e-4;
 params.problem    = problem;
 params.outfile_name = sprintf('%s/%s/log_%s_%s.out', user_dir, algorithm_perf_sub_dir,algorithm_full_name,problem);
-
-function setparams(fieldname, default_value)
-    % is param is given
-    if isfield(params_given, fieldname)
-        fieldvalue = params_given.(fieldname);
-        if isnumeric(default_value)
-            fieldvalue = str2num(fieldvalue);
-        end
-        params.(fieldname) = fieldvalue;
-    % otherwise, use default value
-    else
-        params.(fieldname) = default_value;
-    end
-end
-
 
 try
 
@@ -117,6 +106,9 @@ try
     % solve (f_cutest - fi)^2 MSE problem
     elseif opt_mse
 
+        % rename problem
+        problem = sprintf('%s_mse', problem);
+        
         % get x_star by loading from file
         assert( isfile(ipm_solution_filename), 'no f_cutest solution exists')
         ipm_sol=load(ipm_solution_filename);
@@ -142,7 +134,7 @@ try
 
         % construct params
         clear params;
-        params.problem          = sprintf('%s_mse', problem);
+        params.problem          = problem;
         params.printlevel       = 1;
         params.outfile_name     = sprintf('%s/%s/log_%s_%s.out', user_dir, algorithm_perf_sub_dir,algorithm_full_name,problem);
         if strcmp(algorithm, 'IPM')
@@ -150,9 +142,9 @@ try
             params.maxiter      = 100;
             params.tol          = 1e-4;
         elseif strcmp(algorithm, 'StochasticIPM')
-            % params that is to be tuned
-            params.max_subiter  = setparams('max_subiter', 1);
-            params.strategy     = setparams('strategy', 'proj_ext');
+            % params that are to be tuned
+            params.max_subiter  = str2num(params_given.max_subiter);
+            params.strategy     = params_given.strategy;
             % fixed params
             params.maxtime      = 60*60;   
             params.maxiter      = 10000;
@@ -201,7 +193,7 @@ end
 % print metrics of instance
 fileID = fopen(measure_filename, 'a');
 % TODO: correct the order of metrics in plotPerformanceProfile
-fprintf(fileID, '%s\t%g\t%g\t%g\t%.5f\t%11.4e\t%11.4e\t%s\n', problem, n, status,iter, time,f, norm_r, outcome);
+fprintf(fileID, '%s\t%g\t%g\t%g\t%.5f\t%.5e\t%.5e\t%s\n', problem, n, status,iter, time,f, norm_r, outcome);
 fclose(fileID);
 
 %% Delete
