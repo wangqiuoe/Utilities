@@ -104,7 +104,7 @@ then
 
             # Run solveCUTEstProblemNew
             #/usr/local/matlab/R2018a/bin/matlab -nodisplay -nodesktop -nosplash -nojvm -r "fprintf('Solving %s with %s...\n','${problem}','${algorithm}'); cd ${user_dir};solveCUTEstProblemIPM('${problem}','${algorithm}', '${user_dir}', '${algorithm_perf_sub_dir}'); fprintf(' done.\n'); exit;"
-            qsub -N $N_name -l nodes=1:ppn=2 -q short -l pmem=4gb -l vmem=4gb -e $err_log -o $out_log -v PROBLEM=$problem,ALGORITHM=${algorithm},USER_DIR=$user_dir,ALGORITHM_PERF_SUB_DIR=$algorithm_perf_sub_dir  run_one_problem_ipm.pbs
+            qsub -N $N_name -l nodes=1:ppn=2 -q short -l pmem=8gb -l vmem=8gb -e $err_log -o $out_log -v PROBLEM=$problem,ALGORITHM=${algorithm},USER_DIR=$user_dir,ALGORITHM_PERF_SUB_DIR=$algorithm_perf_sub_dir  run_one_problem_ipm.pbs
 
         done < "$problem_list"
 

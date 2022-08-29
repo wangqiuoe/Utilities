@@ -78,7 +78,7 @@ for idx=1:length(x0)
 end
 
 % general parameters
-params.maxtime    = 60*60;
+params.maxtime    = 120*60;
 params.maxiter    = 100;
 params.printlevel = 1;
 params.tol        = 1e-4;
@@ -115,14 +115,14 @@ try
         x_star=ipm_sol.x_star;
         info_star=ipm_sol.info_star;
     
-        % generate m xi
+        % generate m fi
         m  = 1000;
-        sigma = 0.001*eye(length(x_star));
-        rng(0);
-        xis = mvnrnd(x_star', sigma, m)';      % n by m
+        sigma = 0.001;
         fis = zeros(m,1);
+        rng(0);
         for i = 1:m
-            fis(i) = cutest_obj(xis(:,i));
+            xi = x_star + randn(size(x0)) * sigma;      % assume every component of xi are independent
+            fis(i) = cutest_obj(xi);
         end
 
         % construct mse objective and gradient function
@@ -138,7 +138,7 @@ try
         params.printlevel       = 1;
         params.outfile_name     = sprintf('%s/%s/log_%s_%s.out', user_dir, algorithm_perf_sub_dir,algorithm_full_name,problem);
         if strcmp(algorithm, 'IPM')
-            params.maxtime      = 60*60;   
+            params.maxtime      = 120*60;   
             params.maxiter      = 100;
             params.tol          = 1e-4;
         elseif strcmp(algorithm, 'StochasticIPM')
