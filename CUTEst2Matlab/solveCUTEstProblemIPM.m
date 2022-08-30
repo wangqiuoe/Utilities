@@ -143,6 +143,9 @@ try
             params.tol          = 1e-4;
         elseif strcmp(algorithm, 'StochasticIPM')
             % params that are to be tuned
+            if isfield(params_given, 'proj')
+                params.proj     = str2num(params_given.proj);
+            end
             params.max_subiter  = str2num(params_given.max_subiter);
             params.strategy     = params_given.strategy;
             % fixed params
