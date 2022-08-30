@@ -114,15 +114,12 @@ fi
 if [ $optimize == 0 ]
 then
     # merge the measure performance file with problem_list 
-    python merge_problem_measure_new.py $algorithm_list $user_dir $algorithm_perf_sub_dir
+    python merge_problem_measure_ipm.py $algorithm_list $problem_list $user_dir $algorithm_perf_sub_dir
 
-    # Plot DolanMore Performance Profile of running time
-    #/Applications/MATLAB_R2021a.app/bin/matlab -nodisplay -nodesktop -nosplash -r "fprintf('Plotting DolanMore Performance Profile of running time...\n'); plotDolanMore('$user_dir', '$algorithm_perf_sub_dir', 4, '$suffix', '$algorithm_list');fprintf(' done.\n'); exit;"
-
-    # Plot DolanMore Performance Profile of gradient evaluations
-    /Applications/MATLAB_R2021a.app/bin/matlab -nodisplay -nodesktop -nosplash -r "fprintf('Plotting DolanMore Performance Profile of gradient evaluations...\n'); plotDolanMore('$user_dir', '$algorithm_perf_sub_dir', 5, '$suffix', '$algorithm_list');fprintf(' done.\n'); exit;"
-    # Plot DolanMore Performance Profile of function evaluations
-    /Applications/MATLAB_R2021a.app/bin/matlab -nodisplay -nodesktop -nosplash -r "fprintf('Plotting DolanMore Performance Profile of function evaluations...\n'); plotDolanMore('$user_dir', '$algorithm_perf_sub_dir', 6, '$suffix', '$algorithm_list');fprintf(' done.\n'); exit;"
-    # Plot DolanMore Performance Profile of Hessian vector evaluations
-    /Applications/MATLAB_R2021a.app/bin/matlab -nodisplay -nodesktop -nosplash -r "fprintf('Plotting DolanMore Performance Profile of Hessian vector evaluations...\n'); plotDolanMore('$user_dir', '$algorithm_perf_sub_dir', 7, '$suffix', '$algorithm_list');fprintf(' done.\n'); exit;"
+    # Plot DolanMore Performance Profile of function value, norm_r
+    for column in 6 7
+    do
+        echo /Applications/MATLAB_R2021a.app/bin/matlab -nodisplay -nodesktop -nosplash -r "fprintf('Plotting DolanMore Performance Profile of running time...\n'); plotDolanMoreIPM('$user_dir', '$algorithm_perf_sub_dir', $column, '$suffix', '$algorithm_list');fprintf(' done.\n'); exit;"
+        /Applications/MATLAB_R2021a.app/bin/matlab -nodisplay -nodesktop -nosplash -r "fprintf('Plotting DolanMore Performance Profile of running time...\n'); plotDolanMoreIPM('$user_dir', '$algorithm_perf_sub_dir', $column, '$suffix', '$algorithm_list');fprintf(' done.\n'); exit;"
+    done
 fi
