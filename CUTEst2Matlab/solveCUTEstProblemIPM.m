@@ -89,7 +89,7 @@ try
 
     % check both upper and lower bounded
     for idx=1:length(x0)
-        assert( ((hands.u(idx) == 1e20) || (hands.l(idx) == -1e20)), 'not both upper and lower bounded')
+        assert( ~((hands.u(idx) == 1e20) || (hands.l(idx) == -1e20)), 'not both upper and lower bounded')
     end
 
     % check if x0 is an iterior point
