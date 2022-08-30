@@ -87,6 +87,11 @@ params.outfile_name = sprintf('%s/%s/log_%s_%s.out', user_dir, algorithm_perf_su
 
 try
 
+    % check both upper and lower bounded
+    for idx=1:length(x0)
+        assert( ((hands.u(idx) == 1e20) || (hands.l(idx) == -1e20)), 'not both upper and lower bounded')
+    end
+
     % check if x0 is an iterior point
     assert (( sum(x0 < hands.u) == length(x0) ) && ( sum(x0 > hands.l) == length(x0) ), 'x0 is not an interior point')
 
@@ -165,6 +170,8 @@ catch ME
         info.status=-4;
     elseif strcmp(ME.message, 'no f_cutest solution exists')
         info.status=-5;
+    elseif strcmp(ME.message, 'not both upper and lower bounded')
+        info.status=-6;
     else
         info.status=-1;
     end
