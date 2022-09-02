@@ -89,7 +89,7 @@ try
 
     % check both upper and lower bounded
     for idx=1:length(x0)
-        assert( ~((hands.u(idx) == 1e20) || (hands.l(idx) == -1e20)), 'not both upper and lower bounded')
+        assert( ~((hands.u(idx) == 1e20) && (hands.l(idx) == -1e20)), 'unbounded on both side')
     end
 
     % check if x0 is an iterior point
@@ -148,9 +148,6 @@ try
             params.tol          = 1e-4;
         elseif strcmp(algorithm, 'StochasticIPM')
             % params that are to be tuned
-            if isfield(params_given, 'proj')
-                params.proj     = str2num(params_given.proj);
-            end
             params.max_subiter  = str2num(params_given.max_subiter);
             params.strategy     = params_given.strategy;
             % fixed params
@@ -164,6 +161,34 @@ try
         S = eval(sprintf('%s(x0,hands,params)', algorithm));
         [x, info] = S.solve();
 
+        % save x_trajetory
+        if len(x0) == 2
+            trajetory_filename = sprintf('%s/%s/trajetory_%s_%s.txt', user_dir, algorithm_perf_sub_dir, problem, algorithm_full_name);
+            writematrix(info.iterate.xs', trajetory_filename);
+            x_min = hands.l - 0.01;
+            x_max = hands.u  + 0.01;
+            xs = linspace(x_min(1),x_max(1),200);
+            ys = linspace(x_min(2),x_max(2),200);
+            [Xs,Ys] = meshgrid(xs,ys);
+            Zs = zeros(size(Xs));
+            for i = 1:size(Xs,1)
+                for j = 1:size(Xs,2)
+                    x_cur = [Xs(i,j); Ys(i,j)];
+                    Zs(i,j) = hands.f_hand(x_cur);
+                end
+            end
+            visual.trajetory = info.iterate.xs;
+            visual.Xs = Xs;
+            visual.Ys = Ys;
+            visual.Zs = Zs;
+            visual.l = hands.l;
+            visual.u = hands.u;
+            visual.xs = xs;
+            visual.ys = ys;
+            visual_file = sprintf('%s/%s/visual_%s_%s.txt', user_dir, algorithm_perf_sub_dir, problem, algorithm_full_name);
+            save(visual_file, 'visual');
+        end
+
     end % if optimize MSE problem
 
 catch ME
@@ -173,7 +198,7 @@ catch ME
         info.status=-4;
     elseif strcmp(ME.message, 'no f_cutest solution exists')
         info.status=-5;
-    elseif strcmp(ME.message, 'not both upper and lower bounded')
+    elseif strcmp(ME.message, 'unbounded on both side')
         info.status=-6;
     else
         info.status=-1;
