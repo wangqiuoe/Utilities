@@ -152,9 +152,9 @@ try
             params.strategy     = params_given.strategy;
             % fixed params
             params.maxtime      = 60*60;   
-            params.maxiter      = 10000;
+            params.maxiter      = 1000;
             params.Lf           = abs(info_star.Lf * sum(2 * info_star.f_max - fis));
-            params.alpha_init   = 1e-3;
+            params.alpha_init   = 1e-1;
         end
 
         % call solver
@@ -162,9 +162,12 @@ try
         [x, info] = S.solve();
 
         % save x_trajetory
-        if len(x0) == 2
+        if length(x0) == 2
             trajetory_filename = sprintf('%s/%s/trajetory_%s_%s.txt', user_dir, algorithm_perf_sub_dir, problem, algorithm_full_name);
-            writematrix(info.iterate.xs', trajetory_filename);
+            T = table;
+            T.x1 = info.iterate.xs(1,:)';
+            T.x2 = info.iterate.xs(2,:)';
+            writetable(T, trajetory_filename);
             x_min = hands.l - 0.01;
             x_max = hands.u  + 0.01;
             xs = linspace(x_min(1),x_max(1),200);
