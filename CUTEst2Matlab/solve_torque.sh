@@ -114,8 +114,40 @@ fi
 
 if [ $optimize == 0 ]
 then
+
+    # Loop through list of algorithms
+    while IFS= read -r algorithm
+    do
+        echo $algorithm
+        # extract algorithm full name
+        params=(${algorithm//|/ })
+        fullname=''
+        for i in ${!params[@]}
+        do
+            param=${params[$i]}
+            kv=(${param//=/ })
+            if [ $i -eq 0 ]
+            then
+                fullname=${kv[1]}
+            else
+                fullname=$fullname-${kv[1]}
+            fi
+        done
+
+        # remove existed algorithm performance measure txt file
+        filename=$algorithm_perf_sub_dir/measure_$fullname.txt
+        if [ -f $filename ]
+        then
+            echo $filename exists.
+        else
+            cat $algorithm_perf_sub_dir/measure_${fullname}_*.txt > $filename
+        fi
+
+    done < "$algorithm_list" 
+
+
     # merge the measure performance file with problem_list 
-    python merge_problem_measure_new.py $algorithm_list $user_dir $algorithm_perf_sub_dir
+    python merge_problem_measure_new.py $algorithm_list $problem_list $user_dir $algorithm_perf_sub_dir
 
     # Plot DolanMore Performance Profile of running time
     #/Applications/MATLAB_R2021a.app/bin/matlab -nodisplay -nodesktop -nosplash -r "fprintf('Plotting DolanMore Performance Profile of running time...\n'); plotDolanMore('$user_dir', '$algorithm_perf_sub_dir', 4, '$suffix', '$algorithm_list');fprintf(' done.\n'); exit;"

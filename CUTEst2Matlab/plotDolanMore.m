@@ -45,46 +45,6 @@ function plotDolanMore(user_dir, algorithm_perf_sub_dir, column, suffix, list_al
 % - All lines of the input files must have the same format
 % - All input files must have the same number of lines
 
-
-algorithms=cell(0);
-colors=cell(0);   % specify the color
-files = cell(0);
-f_in = fopen(list_algorithm, 'r');
-j=1;
-while ~feof(f_in)
-    tline = fgetl(f_in);
-    algorithm_config = strsplit(tline, '|');
-    n_params = length(algorithm_config);
-    algorithm = cell(n_params,1);
-    for i=1:n_params
-        kv = strsplit(algorithm_config{i}, '=');
-        if i==1
-            algorithm{i} = upper(kv{2});    % upper the solver's name
-        else
-            algorithm{i} = kv{2};
-        end
-    end
-    algorithms{j} = strjoin(algorithm, '-');
-    if strcmp(algorithms{j}, 'TRACE-inexact-0.01') 
-        color = '#7E2F8E';
-    elseif strcmp(algorithms{j}, 'TRACE-inexact-1') 
-        color = '#EDB120';
-    elseif strcmp(algorithms{j}, 'TRACE-inexact-100') 
-        color = '#D95319';
-    elseif strcmp(algorithms{j}, 'TRACE-exact') 
-        color = '#0072BD';
-    elseif strcmp(algorithms{j}, 'ARC-1') 
-        color = '#77AC30';
-    elseif strcmp(algorithms{j}, 'TRNTCG') 
-        color = '#A2142F';
-    end
-    colors{j} = color;        
-    files{j} = sprintf('%s/%s/new_measure_%s.txt',user_dir,algorithm_perf_sub_dir, algorithms{j} );
-    j = j+1;
-end
-fclose(f_in);
-
-
 % File format per line
 % prblem status iter f g_norm time f_evals sub_iter Hv_evals
 %file_format = '%s\t%f\t%f\t%f\t%f\t%f\t%f\t%f\t%f';
@@ -106,15 +66,116 @@ addpath(sprintf('%s/PerformanceProfilers/src/Matlab/', user_dir));
 if column == 4
     options.title='runningtime';
 elseif column == 5
-    options.title='gradient-evals';
+    options.title='Gradient Evaluations';
 elseif column == 6
-    options.title='function-evals';
+    options.title='Function Evaluations';
 elseif column == 7
-    options.title='Hv-evals';
+    options.title='Hessian-Vector Products';
 end
 
 options.suffix = suffix;
 options.style='slides';     % for slides
+optins.caption='settings'; % 'algorithms' then use same caption and color for different settings of algorithm, otherwise 'settings' use different caption and color for different setting of algorithm
+
+algorithms=cell(0);
+colors=cell(0);   % specify the color
+files = cell(0);
+f_in = fopen(list_algorithm, 'r');
+j=1;
+while ~feof(f_in)
+    tline = fgetl(f_in);
+    algorithm_config = strsplit(tline, '|');
+    n_params = length(algorithm_config);
+    algorithm = cell(n_params,1);
+    for i=1:n_params
+        kv = strsplit(algorithm_config{i}, '=');
+        if i==1
+            algorithm{i} = upper(kv{2});    % upper the solver's name
+        else
+            algorithm{i} = kv{2};
+        end
+    end
+    algorithm_temp = strjoin(algorithm, '-');
+
+    % ignore Hv-evals for TRACE
+    if strcmp(algorithm_temp, 'ITRACE-exact') && strcmp(options.title,'Hessian-Vector Products')
+        continue
+    end
+    algorithms{j} = algorithm_temp;
+
+    files{j} = sprintf('%s/%s/new_measure_%s.txt',user_dir,algorithm_perf_sub_dir, algorithms{j} );
+    % revise algorithm name
+    if strcmp(optins.caption,'algorithms')
+        if strcmp(algorithms{j}, 'ITRACE-inexact-0.1-0.01') 
+            algorithms{j} = 'I-TRACE';
+            color = 'red';
+        elseif strcmp(algorithms{j}, 'ITRACE-inexact-1-0.1') 
+            algorithms{j} = 'I-TRACE';
+            color = 'red';
+        elseif strcmp(algorithms{j}, 'ITRACE-inexact-9-0.9') 
+            algorithms{j} = 'I-TRACE';
+            color = 'red';
+        elseif strcmp(algorithms{j}, 'ITRACE-exact') 
+            algorithms{j} = 'TRACE';
+            color = '#0072BD';
+        elseif strcmp(algorithms{j}, 'ARC-0.01') 
+            algorithms{j} = 'ARC';
+            color = '#77AC30';
+        elseif strcmp(algorithms{j}, 'ARC-0.1') 
+            algorithms{j} = 'ARC';
+            color = '#77AC30';
+        elseif strcmp(algorithms{j}, 'ARC-0.9') 
+            algorithms{j} = 'ARC';
+            color = '#77AC30';
+        elseif strcmp(algorithms{j}, 'TRNCG-0.01') 
+            algorithms{j} = 'Newton-CG';
+            color = '#4DBEEE';
+        elseif strcmp(algorithms{j}, 'TRNCG-0.1') 
+            algorithms{j} = 'Newton-CG';
+            color = '#4DBEEE';
+        elseif strcmp(algorithms{j}, 'TRNCG-0.9') 
+            algorithms{j} = 'Newton-CG';
+            color = '#4DBEEE';
+        end
+    elseif strcmp(optins.caption,'settings')
+        if strcmp(algorithms{j}, 'ITRACE-inexact-0.1-0.01') 
+            algorithms{j} = 'I-TRACE (setting 1)';
+            color = '#EDB120';
+        elseif strcmp(algorithms{j}, 'ITRACE-inexact-1-0.1') 
+            algorithms{j} = 'I-TRACE (setting 2)';
+            color = 'red';
+        elseif strcmp(algorithms{j}, 'ITRACE-inexact-9-0.9') 
+            algorithms{j} = 'I-TRACE (setting 3)';
+            color = '#7E2F8E';
+        elseif strcmp(algorithms{j}, 'ITRACE-exact') 
+            algorithms{j} = 'TRACE';
+            color = '#0072BD';
+        elseif strcmp(algorithms{j}, 'ARC-0.01') 
+            algorithms{j} = 'ARC (setting 1)'
+            color = '#EDB120';
+        elseif strcmp(algorithms{j}, 'ARC-0.1') 
+            algorithms{j} = 'ARC (setting 2)';
+            color = 'red';
+        elseif strcmp(algorithms{j}, 'ARC-0.9') 
+            algorithms{j} = 'ARC (setting 3)';
+            color = '#7E2F8E';
+        elseif strcmp(algorithms{j}, 'TRNCG-0.01') 
+            algorithms{j} = 'Newton-CG (setting 1)'
+            color = '#EDB120';
+        elseif strcmp(algorithms{j}, 'TRNCG-0.1') 
+            algorithms{j} = 'Newton-CG (setting 2)';
+            color = 'red';
+        elseif strcmp(algorithms{j}, 'TRNCG-0.9') 
+            algorithms{j} = 'Newton-CG (setting 3)';
+            color = '#7E2F8E';
+        end
+    end
+
+    colors{j} = color;        
+    j = j+1;
+end
+fclose(f_in);
+
 options.colors=colors;      % for specify colors
 % Call profiler
 profilerDolanMore(files,algorithms,file_format,column,options, user_dir, algorithm_perf_sub_dir);
