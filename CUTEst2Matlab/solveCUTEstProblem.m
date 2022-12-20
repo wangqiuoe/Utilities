@@ -47,7 +47,7 @@ hands.H_hand = @cutest_hess;
 hands.Hv_hand = @cutest_hprod;
 x0 = P.x;
 params.maxtime    = 90*60;   % max 10 minutes for each instance
-params.maxiter    = 1e+8;
+params.maxiter    = 1e8;
 params.printlevel = 1;
 params.subprintlevel =0;
 params.subsubprintlevel =0;
@@ -68,9 +68,9 @@ end
 params.outfileID = fopen(sprintf('%s/%s/log_%s_%s.out', user_dir, algorithm_perf_sub_dir,algorithm_full_name,problem),'w');
 
 % Optimize
-%[x, info] = S(hands, x0, params);
+[x, info] = S(hands, x0, params);
 try
-    [x, info] = S(hands, x0, params);
+    %[x, info] = S(hands, x0, params);
 catch ME
     if strcmp(ME.identifier, 'MATLAB:nomem')
         info.status=-3;
@@ -96,7 +96,8 @@ norm_g    = info.norm_g;
 n         = length(x0);
 
 % Save solution
-fileID = fopen(sprintf('%s/%s/measure_%s.txt', user_dir, algorithm_perf_sub_dir,algorithm_full_name), 'a');
+measure_filename = sprintf('%s/%s/measure_%s_%s.txt', user_dir, algorithm_perf_sub_dir,algorithm_full_name, problem);
+fileID = fopen(measure_filename, 'w');
 fprintf(fileID, '%s\t%g\t%g\t%.5f\t%g\t%g\t%g\t%.5f\t%.5f\t%s\n', problem, n, status, time,g_evals,f_evals, Hv_evals, f, norm_g, outcome);
 fclose(fileID);
 % ------------------------------------------------------------------
